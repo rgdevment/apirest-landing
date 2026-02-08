@@ -1,61 +1,119 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import ServiceCard from '../components/ServiceCard.astro';
 
-const sections = [
+const services = [
   {
-    title: "Misión",
-    content: "Proporcionar herramientas y servicios digitales gratuitos, open source y de alta disponibilidad, facilitando el acceso a información crítica (indicadores, geodata) y utilidades de productividad para desarrolladores y ciudadanos en Chile y el mundo."
+    title: "Indicadores Chile",
+    description: "API REST de alto rendimiento para consultar UF, Dólar, UTM y otros indicadores económicos en tiempo real. Formatos JSON.",
+    url: "https://indicadores.apirest.cl", // Ajusta a tu URL real
+    type: "API",
+    status: "online",
+    icon: "M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" // Icono de Moneda/Dólar
   },
   {
-    title: "Visión",
-    content: "Ser el referente principal en Chile de infraestructura digital comunitaria y transparente, donde la tecnología sirve a las personas sin barreras de entrada ni costos ocultos."
+    title: "Countries Service",
+    description: "Base de datos normalizada de países, códigos ISO, banderas y geodata. Ideal para selectores y validaciones.",
+    url: "#",
+    type: "API",
+    status: "online",
+    icon: "M3 12a9 9 0 1 0 18 0a9 9 0 0 0-18 0m.6-1.9a9 9 0 0 1 9.9-9.9M3.6 13.9a9 9 0 0 0 9.9 9.9" // Icono Planeta
   },
   {
-    title: "Compromiso",
-    content: "Mantenemos nuestros servicios (CopyPaste, Indicadores, Countries) en servidores propios, garantizando la soberanía de los datos, uptime y una política de cero monetización con datos de usuarios."
-  },
-  {
-    title: "Objetivo",
-    content: "Democratizar el acceso a APIs y herramientas de software, reduciendo la brecha técnica para nuevos desarrolladores y ofreciendo estabilidad para integraciones en producción."
-  },
-  {
-    title: "Motivación",
-    content: "Nos mueve la convicción de que el software debe ser libre y colaborativo. Desarrollamos lo que nosotros mismos necesitamos y lo compartimos para potenciar el ecosistema tecnológico local."
+    title: "CopyPaste Project",
+    description: "Gestor de portapapeles Open Source avanzado. Sincronización local, historial seguro y soporte para formatos complejos.",
+    url: "https://github.com/rgdevment/copypaste",
+    type: "APP",
+    status: "beta",
+    icon: "M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" // Icono Clipboard
   }
 ];
 ---
 
-<Layout title="apirest.cl | Open Source Services">
-	<header class="mb-16 text-center">
-		<h1 class="text-5xl font-bold bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent mb-4">
-			apirest.cl
-		</h1>
-		<p class="text-xl text-slate-400">Infraestructura Open Source desde Chile</p>
+<Layout title="apirest.cl | Hub de Servicios Open Source">
+	<header class="py-20 border-b border-slate-800">
+		<div class="text-center max-w-2xl mx-auto">
+			<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-sm font-medium mb-6">
+				<span class="flex h-2 w-2 rounded-full bg-indigo-500"></span>
+				Sistemas Operativos
+			</div>
+			<h1 class="text-5xl md:text-6xl font-bold text-slate-100 mb-6 tracking-tight">
+				Infraestructura <span class="text-indigo-500">Open Source</span>
+			</h1>
+			<p class="text-lg text-slate-400 leading-relaxed">
+				Conjunto de APIs públicas y utilidades mantenidas por la comunidad para desarrolladores.
+				Sin tracking, sin barreras, directo al código.
+			</p>
+			<div class="mt-8 flex justify-center gap-4">
+				<a href="#directory" class="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-lg transition-colors">
+					Explorar Servicios
+				</a>
+				<a href="https://github.com/rgdevment" target="_blank" class="px-6 py-3 bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold rounded-lg border border-slate-700 transition-colors">
+					GitHub
+				</a>
+			</div>
+		</div>
 	</header>
 
-	<section class="mb-20">
-		<h2 class="text-2xl font-semibold mb-6 text-indigo-300 border-b border-slate-800 pb-2">Nuestros Proyectos</h2>
-		<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-			{["CopyPaste", "Indicadores Chile", "Countries Service"].map((item) => (
-				<div class="p-6 rounded-lg bg-slate-900 border border-slate-800 hover:border-indigo-500/50 transition-colors">
-					<h3 class="font-bold text-lg text-slate-100">{item}</h3>
-				</div>
+	<section id="directory" class="py-20">
+		<div class="flex items-end justify-between mb-10">
+			<div>
+				<h2 class="text-2xl font-bold text-slate-100">Directorio de Servicios</h2>
+				<p class="text-slate-400 mt-1">Estado en tiempo real de nuestras APIs y Herramientas.</p>
+			</div>
+		</div>
+
+		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+			{services.map(service => (
+				// @ts-ignore
+				<ServiceCard {...service} />
 			))}
 		</div>
 	</section>
 
-	<div class="space-y-16">
-		{sections.map((section) => (
-			<section>
-				<h2 class="text-3xl font-bold mb-4 text-slate-100">{section.title}</h2>
-				<p class="text-lg text-slate-300 leading-relaxed max-w-3xl">
-					{section.content}
-				</p>
-			</section>
-		))}
-	</div>
+	<section class="py-20 border-t border-slate-800">
+		<div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+			<div>
+				<h2 class="text-3xl font-bold text-slate-100 mb-6">Nuestra Filosofía</h2>
+				<div class="space-y-6">
+					<div class="flex gap-4">
+						<div class="w-12 h-12 rounded-lg bg-indigo-500/10 flex items-center justify-center shrink-0">
+							<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-indigo-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+						</div>
+						<div>
+							<h3 class="font-bold text-slate-200">Soberanía Tecnológica</h3>
+							<p class="text-slate-400 text-sm mt-1">Mantenemos nuestros propios servidores locales. No dependemos de nubes de terceros para el core de nuestros servicios.</p>
+						</div>
+					</div>
+					<div class="flex gap-4">
+						<div class="w-12 h-12 rounded-lg bg-indigo-500/10 flex items-center justify-center shrink-0">
+							<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-indigo-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+						</div>
+						<div>
+							<h3 class="font-bold text-slate-200">Comunidad & Open Source</h3>
+							<p class="text-slate-400 text-sm mt-1">Todo lo que construimos es liberado. Creemos en herramientas gratuitas, auditables y mejoradas por todos.</p>
+						</div>
+					</div>
+				</div>
+			</div>
 
-	<footer class="mt-24 pt-8 border-t border-slate-800 text-center text-slate-500 text-sm">
-		<p>&copy; {new Date().getFullYear()} apirest.cl. Open Source Infrastructure.</p>
-	</footer>
+			<div class="bg-slate-900 p-8 rounded-2xl border border-slate-800">
+				<h3 class="font-bold text-slate-100 mb-4">Sobre apirest.cl</h3>
+				<p class="text-slate-400 leading-relaxed mb-6">
+					Nacimos de la necesidad de tener datos fiables sin pagar suscripciones abusivas.
+					Somos desarrolladores creando para desarrolladores.
+				</p>
+				<div class="grid grid-cols-2 gap-4">
+					<div class="p-4 bg-slate-950 rounded border border-slate-800 text-center">
+						<span class="block text-2xl font-bold text-indigo-400">99.9%</span>
+						<span class="text-xs text-slate-500 uppercase tracking-wider">Uptime</span>
+					</div>
+					<div class="p-4 bg-slate-950 rounded border border-slate-800 text-center">
+						<span class="block text-2xl font-bold text-indigo-400">Free</span>
+						<span class="text-xs text-slate-500 uppercase tracking-wider">Licencia</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
 </Layout>

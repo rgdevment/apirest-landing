@@ -1,0 +1,42 @@
+---
+interface Props {
+	title: string;
+	description: string;
+	url: string;
+	type: "API" | "APP" | "LIB";
+	icon: string; // SVG path content
+	status?: "online" | "beta" | "maintenance";
+}
+
+const { title, description, url, type, icon, status = "online" } = Astro.props;
+
+const statusColor = {
+	online: "bg-emerald-500",
+	beta: "bg-amber-500",
+	maintenance: "bg-red-500"
+};
+---
+
+<a href={url} target="_blank" class="group relative block p-6 bg-slate-900 border border-slate-800 rounded-xl hover:border-indigo-500/50 transition-all hover:shadow-lg hover:shadow-indigo-500/10">
+	<div class="flex items-start justify-between mb-4">
+		<div class="p-3 bg-slate-800 rounded-lg text-indigo-400 group-hover:text-indigo-300 group-hover:bg-slate-700 transition-colors">
+			<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+				<path d={icon} />
+			</svg>
+		</div>
+		<div class="flex items-center gap-2">
+			<span class={`text-xs font-mono px-2 py-1 rounded bg-slate-800 text-slate-400 border border-slate-700`}>{type}</span>
+			<span class="flex h-3 w-3">
+				<span class={`animate-ping absolute inline-flex h-3 w-3 rounded-full opacity-75 ${statusColor[status]}`}></span>
+				<span class={`relative inline-flex rounded-full h-3 w-3 ${statusColor[status]}`}></span>
+			</span>
+		</div>
+	</div>
+
+	<h3 class="text-xl font-bold text-slate-100 mb-2 group-hover:text-indigo-400 transition-colors">{title}</h3>
+	<p class="text-slate-400 text-sm leading-relaxed mb-4">{description}</p>
+
+	<div class="flex items-center text-indigo-400 text-sm font-medium mt-auto group-hover:translate-x-1 transition-transform">
+		Ver documentación <span class="ml-1">→</span>
+	</div>
+</a>
