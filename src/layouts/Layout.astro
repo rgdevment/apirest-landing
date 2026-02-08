@@ -1,0 +1,41 @@
+---
+interface Props {
+	title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es" class="scroll-smooth">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content="apirest.cl - Servicios Open Source Gratuitos" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+	</head>
+	<body class="bg-slate-950 text-slate-200 font-sans antialiased selection:bg-indigo-500 selection:text-white">
+		<main class="max-w-4xl mx-auto px-6 py-12">
+			<slot />
+		</main>
+	</body>
+</html>
+
+<style is:global>
+	/* Custom scrollbar for Webkit browsers */
+	::-webkit-scrollbar {
+		width: 10px;
+	}
+	::-webkit-scrollbar-track {
+		background: #0f172a;
+	}
+	::-webkit-scrollbar-thumb {
+		background: #334155;
+		border-radius: 5px;
+	}
+	::-webkit-scrollbar-thumb:hover {
+		background: #475569;
+	}
+</style>

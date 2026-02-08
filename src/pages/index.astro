@@ -1,0 +1,61 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const sections = [
+  {
+    title: "Misión",
+    content: "Proporcionar herramientas y servicios digitales gratuitos, open source y de alta disponibilidad, facilitando el acceso a información crítica (indicadores, geodata) y utilidades de productividad para desarrolladores y ciudadanos en Chile y el mundo."
+  },
+  {
+    title: "Visión",
+    content: "Ser el referente principal en Chile de infraestructura digital comunitaria y transparente, donde la tecnología sirve a las personas sin barreras de entrada ni costos ocultos."
+  },
+  {
+    title: "Compromiso",
+    content: "Mantenemos nuestros servicios (CopyPaste, Indicadores, Countries) en servidores propios, garantizando la soberanía de los datos, uptime y una política de cero monetización con datos de usuarios."
+  },
+  {
+    title: "Objetivo",
+    content: "Democratizar el acceso a APIs y herramientas de software, reduciendo la brecha técnica para nuevos desarrolladores y ofreciendo estabilidad para integraciones en producción."
+  },
+  {
+    title: "Motivación",
+    content: "Nos mueve la convicción de que el software debe ser libre y colaborativo. Desarrollamos lo que nosotros mismos necesitamos y lo compartimos para potenciar el ecosistema tecnológico local."
+  }
+];
+---
+
+<Layout title="apirest.cl | Open Source Services">
+	<header class="mb-16 text-center">
+		<h1 class="text-5xl font-bold bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent mb-4">
+			apirest.cl
+		</h1>
+		<p class="text-xl text-slate-400">Infraestructura Open Source desde Chile</p>
+	</header>
+
+	<section class="mb-20">
+		<h2 class="text-2xl font-semibold mb-6 text-indigo-300 border-b border-slate-800 pb-2">Nuestros Proyectos</h2>
+		<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+			{["CopyPaste", "Indicadores Chile", "Countries Service"].map((item) => (
+				<div class="p-6 rounded-lg bg-slate-900 border border-slate-800 hover:border-indigo-500/50 transition-colors">
+					<h3 class="font-bold text-lg text-slate-100">{item}</h3>
+				</div>
+			))}
+		</div>
+	</section>
+
+	<div class="space-y-16">
+		{sections.map((section) => (
+			<section>
+				<h2 class="text-3xl font-bold mb-4 text-slate-100">{section.title}</h2>
+				<p class="text-lg text-slate-300 leading-relaxed max-w-3xl">
+					{section.content}
+				</p>
+			</section>
+		))}
+	</div>
+
+	<footer class="mt-24 pt-8 border-t border-slate-800 text-center text-slate-500 text-sm">
+		<p>&copy; {new Date().getFullYear()} apirest.cl. Open Source Infrastructure.</p>
+	</footer>
+</Layout>
