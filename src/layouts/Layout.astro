@@ -16,7 +16,7 @@ const { title } = Astro.props;
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 	</head>
-	<body class="bg-gradient-to-br from-slate-50 via-gray-50 to-slate-100 text-gray-900 font-sans antialiased selection:bg-violet-500 selection:text-white">
+	<body class="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-gray-100 font-sans antialiased selection:bg-violet-500 selection:text-white">
 		<main class="max-w-4xl mx-auto px-6 py-12">
 			<slot />
 		</main>
@@ -28,13 +28,13 @@ const { title } = Astro.props;
 		width: 10px;
 	}
 	::-webkit-scrollbar-track {
-		background: #f8fafc;
+		background: #1f2937;
 	}
 	::-webkit-scrollbar-thumb {
-		background: #cbd5e1;
+		background: #4b5563;
 		border-radius: 5px;
 	}
 	::-webkit-scrollbar-thumb:hover {
-		background: #94a3b8;
+		background: #6b7280;
 	}
 </style>

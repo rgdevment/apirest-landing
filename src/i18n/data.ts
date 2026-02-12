@@ -15,7 +15,7 @@ export const siteData = {
       title:
         "Software por convicción, <br/> <span class='text-transparent bg-clip-text bg-gradient-to-r from-violet-600 via-purple-600 to-fuchsia-600'>no por suscripción.</span>",
       subtitle:
-        "Mantenemos servicios esenciales y herramientas de productividad para desarrolladores. <strong class='text-gray-900'>Sin tracking. Sin barreras. Sin costo.</strong>",
+        "Mantenemos servicios esenciales y herramientas de productividad para desarrolladores. <strong class='text-gray-100'>Sin tracking. Sin barreras. Sin costo.</strong>",
       ctaMain: 'Ver Servicios',
       ctaGithub: 'GitHub Profile',
     },
@@ -47,7 +47,7 @@ export const siteData = {
       text1:
         'En un ecosistema saturado de servicios de pago por uso y recolección de datos, <strong>apirest.cl</strong> nace como un bastión de resistencia.',
       text2:
-        "Nuestra motivación es simple: <span class='text-gray-900 font-semibold'>Democratizar la infraestructura.</span> Creemos que acceder a indicadores económicos básicos o herramientas de productividad no debería requerir una tarjeta de crédito ni ceder tu privacidad.",
+        "Nuestra motivación es simple: <span class='text-gray-100 font-semibold'>Democratizar la infraestructura.</span> Creemos que acceder a indicadores económicos básicos o herramientas de productividad no debería requerir una tarjeta de crédito ni ceder tu privacidad.",
       text3:
         'Mantenemos esto porque lo usamos. Lo compartimos porque creemos en el valor colectivo del código abierto.',
     },
@@ -79,7 +79,7 @@ export const siteData = {
       title:
         "Software by conviction, <br/> <span class='text-transparent bg-clip-text bg-gradient-to-r from-violet-600 via-purple-600 to-fuchsia-600'>not subscription.</span>",
       subtitle:
-        "We maintain essential services and productivity tools for developers. <strong class='text-gray-900'>No tracking. No barriers. No cost.</strong>",
+        "We maintain essential services and productivity tools for developers. <strong class='text-gray-100'>No tracking. No barriers. No cost.</strong>",
       ctaMain: 'View Services',
       ctaGithub: 'GitHub Profile',
     },
@@ -111,7 +111,7 @@ export const siteData = {
       text1:
         'In an ecosystem saturated with pay-per-use services and data harvesting, <strong>apirest.cl</strong> is born as a bastion of resistance.',
       text2:
-        "Our motivation is simple: <span class='text-gray-900 font-semibold'>Democratize infrastructure.</span> We believe accessing basic economic indicators or productivity tools shouldn't require a credit card or surrendering your privacy.",
+        "Our motivation is simple: <span class='text-gray-100 font-semibold'>Democratize infrastructure.</span> We believe accessing basic economic indicators or productivity tools shouldn't require a credit card or surrendering your privacy.",
       text3:
         'We maintain this because we use it. We share it because we believe in the collective value of open source.',
     },
