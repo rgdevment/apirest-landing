@@ -12,7 +12,6 @@ export const siteData = {
       desc: 'APIs públicas y herramientas Open Source desde Chile.',
     },
     hero: {
-      status: 'Sistemas Operativos',
       title:
         "Software por convicción, <br/> <span class='text-transparent bg-clip-text bg-gradient-to-r from-violet-600 via-purple-600 to-fuchsia-600'>no por suscripción.</span>",
       subtitle:
@@ -31,7 +30,6 @@ export const siteData = {
           'Fuente de verdad normalizada para geodata. Banderas, códigos ISO, monedas y datos regionales. Datos limpios para poblar selectores y validaciones.',
         url: 'https://github.com/rgdevment/retrieve-countries',
         type: 'API',
-        status: 'online',
         icon: 'M3 12a9 9 0 1 0 18 0a9 9 0 0 0-18 0m.6-1.9a9 9 0 0 1 9.9-9.9M3.6 13.9a9 9 0 0 0 9.9 9.9',
       },
       {
@@ -41,7 +39,6 @@ export const siteData = {
         url: 'https://apps.microsoft.com/detail/9nbjrzf3k856',
         githubUrl: 'https://github.com/rgdevment/CopyPaste',
         type: 'APP',
-        status: 'beta',
         icon: 'M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2',
       },
     ],
@@ -79,7 +76,6 @@ export const siteData = {
       desc: 'Public APIs and Open Source tools from Chile.',
     },
     hero: {
-      status: 'Systems Operational',
       title:
         "Software by conviction, <br/> <span class='text-transparent bg-clip-text bg-gradient-to-r from-violet-600 via-purple-600 to-fuchsia-600'>not subscription.</span>",
       subtitle:
@@ -98,7 +94,6 @@ export const siteData = {
           'Normalized source of truth for geodata. Flags, ISO codes, currencies, and regional data. Clean data to populate selectors and validations.',
         url: 'https://github.com/rgdevment/retrieve-countries',
         type: 'API',
-        status: 'online',
         icon: 'M3 12a9 9 0 1 0 18 0a9 9 0 0 0-18 0m.6-1.9a9 9 0 0 1 9.9-9.9M3.6 13.9a9 9 0 0 0 9.9 9.9',
       },
       {
@@ -108,7 +103,6 @@ export const siteData = {
         url: 'https://apps.microsoft.com/detail/9nbjrzf3k856',
         githubUrl: 'https://github.com/rgdevment/CopyPaste',
         type: 'APP',
-        status: 'beta',
         icon: 'M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2',
       },
     ],

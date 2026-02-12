@@ -28,11 +28,6 @@ const nextLabel = lang === 'es' ? 'English' : 'Español';
         </div>
 
 		<div class="max-w-4xl mx-auto text-center px-6">
-			<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/80 backdrop-blur-sm border border-emerald-200 text-emerald-700 text-xs font-mono mb-8 shadow-sm">
-				<span class="flex h-2 w-2 rounded-full bg-emerald-500 shadow-[0_0_12px_rgba(16,185,129,0.5)]"></span>
-				{t.hero.status}
-			</div>
-
 			<h1 class="text-5xl md:text-7xl font-bold text-gray-900 mb-8 tracking-tight" set:html={t.hero.title} />
 
 			<p class="text-xl text-gray-700 leading-relaxed max-w-2xl mx-auto mb-10" set:html={t.hero.subtitle} />
@@ -100,9 +95,6 @@ const nextLabel = lang === 'es' ? 'English' : 'Español';
 			Desarrollado con <span class="text-red-500">♥</span> y
 			<a href="https://astro.build" target="_blank" class="text-slate-700 hover:text-slate-900 underline decoration-slate-300">Astro</a>
 			por <a href="https://github.com/rgdevment" class="text-slate-800 hover:text-slate-950 font-bold">@rgdevment</a>.
-		</p>
-		<p class="text-gray-500 text-xs mt-2">
-			Server Status: <span class="text-emerald-600 font-semibold">Online</span> • Location: <span class="text-gray-600">Local Lab</span>
 		</p>
 	</footer>
 </Layout>
