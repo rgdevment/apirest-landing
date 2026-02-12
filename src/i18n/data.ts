@@ -14,7 +14,7 @@ export const siteData = {
     hero: {
       status: 'Sistemas Operativos',
       title:
-        "Software por convicción, <br/> <span class='text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600'>no por suscripción.</span>",
+        "Software por convicción, <br/> <span class='text-transparent bg-clip-text bg-gradient-to-r from-violet-600 via-purple-600 to-fuchsia-600'>no por suscripción.</span>",
       subtitle:
         "Mantenemos servicios esenciales y herramientas de productividad para desarrolladores. <strong class='text-gray-900'>Sin tracking. Sin barreras. Sin costo.</strong>",
       ctaMain: 'Ver Servicios',
@@ -81,7 +81,7 @@ export const siteData = {
     hero: {
       status: 'Systems Operational',
       title:
-        "Software by conviction, <br/> <span class='text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600'>not subscription.</span>",
+        "Software by conviction, <br/> <span class='text-transparent bg-clip-text bg-gradient-to-r from-violet-600 via-purple-600 to-fuchsia-600'>not subscription.</span>",
       subtitle:
         "We maintain essential services and productivity tools for developers. <strong class='text-gray-900'>No tracking. No barriers. No cost.</strong>",
       ctaMain: 'View Services',
