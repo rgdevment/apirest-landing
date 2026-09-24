@@ -76,7 +76,7 @@ const graphs = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
       {locale === "es" ? "Ir al contenido" : "Skip to content"}
     </a>
 
-    <Nav locale={locale} here={here} />
+    <Nav locale={locale} here={here} other={at(locale === "es" ? "en" : "es")} />
 
     <main id="content" class="mx-auto max-w-3xl px-6 py-14">
       <slot />
@@ -88,22 +88,6 @@ const graphs = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
           locale === "es"
             ? "Software por convicción, no por suscripción."
             : "Software out of conviction, not subscription."
-        }
-      </p>
-      <p class="mt-2">
-        {
-          LOCALES.map((one, index) => (
-            <>
-              {index > 0 && <span class="px-2">·</span>}
-              {one === locale ? (
-                <span class="text-gray-300">{one === "es" ? "Español" : "English"}</span>
-              ) : (
-                <a class="hover:text-gray-300" href={href(one, at(one))}>
-                  {one === "es" ? "Español" : "English"}
-                </a>
-              )}
-            </>
-          ))
         }
       </p>
     </footer>

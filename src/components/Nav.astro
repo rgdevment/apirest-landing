@@ -5,9 +5,11 @@ import { href, type Locale } from "../site";
 interface Props {
   locale: Locale;
   here?: string;
+  other: string;
 }
 
-const { locale, here } = Astro.props;
+const { locale, here, other } = Astro.props;
+const there: Locale = locale === "es" ? "en" : "es";
 const es = locale === "es";
 const guides = es ? "guias" : "guides";
 ---
@@ -39,6 +41,15 @@ const guides = es ? "guias" : "guides";
       href={href(locale, guides)}
     >
       {es ? "Guías" : "Guides"}
+    </a>
+
+    <a
+      class="ml-auto rounded-md border border-gray-800 px-3 py-1 text-gray-400 transition hover:border-gray-600 hover:text-gray-200"
+      href={href(there, other)}
+      lang={there}
+      hreflang={there}
+    >
+      {es ? "English" : "Español"}
     </a>
   </nav>
 </header>
