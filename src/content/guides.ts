@@ -1,24 +1,11 @@
-import type { Locale } from "../site";
+import { COPYPASTE_GUIDES } from "./guides-copypaste";
+import { TISTY_GUIDES } from "./guides-tisty";
+import type { Guide } from "./guide";
 
-type Step = { title: string; body: string };
+export type { Guide } from "./guide";
+export { written } from "./guide";
 
-type Written = {
-  slug: string;
-  title: string;
-  description: string;
-  lede: string;
-  nativeTitle: string;
-  nativeSteps: Step[];
-  gapTitle: string;
-  gap: string[];
-  toolTitle: string;
-  tool: string[];
-  faq: { q: string; a: string }[];
-};
-
-export type Guide = { id: string; product: string; en: Written; es: Written };
-
-export const GUIDES: Guide[] = [
+const LINKUNBOUND_GUIDES: Guide[] = [
   {
     id: "teams-links",
     product: "linkunbound",
@@ -389,6 +376,5 @@ export const GUIDES: Guide[] = [
   },
 ];
 
-export function written(guide: Guide, locale: Locale): Written {
-  return locale === "es" ? guide.es : guide.en;
-}
+/// Named in the order the products are named everywhere else: Tisty, LinkUnbound, CopyPaste.
+export const GUIDES: Guide[] = [...TISTY_GUIDES, ...LINKUNBOUND_GUIDES, ...COPYPASTE_GUIDES];

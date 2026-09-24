@@ -25,6 +25,61 @@ export type Product = {
 
 export const PRODUCTS: Product[] = [
   {
+    slug: "tisty",
+    name: "Tisty",
+    repo: "https://github.com/rgdevment/Tisty",
+    licence: "AGPL-3.0",
+    platforms: ["Windows", "macOS"],
+    storeId: "9PGVWXD8X93N",
+    winget: "rgdevment.Tisty",
+    cask: "tisty",
+    accent: "#6F4BD8",
+    en: {
+      tagline: "Notes, documents and tasks, in files you can read without it.",
+      problem:
+        "Your notes live inside somebody else's application. The day it shuts down, or the subscription lapses, you find out what you actually own.",
+      what: [
+        "Notes, documents and tasks kept as plain files on your own disk.",
+        "No account and no server: nothing is synchronised unless you put the folder somewhere that synchronises.",
+        "An MCP door your assistant can knock on, so a model can read and write what you keep, with your permission.",
+      ],
+      privacy:
+        "Local-first by design. The files are yours and readable without Tisty running.",
+      faq: [
+        {
+          q: "What happens to my notes if Tisty disappears?",
+          a: "Nothing. They are plain files on your disk and any editor opens them.",
+        },
+        {
+          q: "What is the MCP door for?",
+          a: "It lets an assistant read and write your notes and tasks through the Model Context Protocol, on your machine and with your permission.",
+        },
+      ],
+    },
+    es: {
+      tagline: "Notas, documentos y tareas, en archivos que puedes leer sin él.",
+      problem:
+        "Tus notas viven dentro de la aplicación de otro. El día que cierre, o que se acabe la suscripción, descubres qué es tuyo de verdad.",
+      what: [
+        "Notas, documentos y tareas guardados como archivos corrientes en tu propio disco.",
+        "Sin cuenta y sin servidor: no se sincroniza nada salvo que tú pongas la carpeta en un sitio que sincronice.",
+        "Una puerta MCP a la que tu asistente puede llamar, para que un modelo lea y escriba lo que guardas, con tu permiso.",
+      ],
+      privacy:
+        "Local por diseño. Los archivos son tuyos y se leen sin que Tisty esté abierto.",
+      faq: [
+        {
+          q: "¿Qué pasa con mis notas si Tisty desaparece?",
+          a: "Nada. Son archivos corrientes en tu disco y los abre cualquier editor.",
+        },
+        {
+          q: "¿Para qué sirve la puerta MCP?",
+          a: "Permite que un asistente lea y escriba tus notas y tareas por el Model Context Protocol, en tu equipo y con tu permiso.",
+        },
+      ],
+    },
+  },
+  {
     slug: "linkunbound",
     name: "LinkUnbound",
     repo: "https://github.com/rgdevment/LinkUnbound",
@@ -141,61 +196,6 @@ export const PRODUCTS: Product[] = [
         {
           q: "¿Dónde queda el historial?",
           a: "En tu equipo, dentro de tu perfil de usuario. No se sube a ninguna parte.",
-        },
-      ],
-    },
-  },
-  {
-    slug: "tisty",
-    name: "Tisty",
-    repo: "https://github.com/rgdevment/Tisty",
-    licence: "AGPL-3.0",
-    platforms: ["Windows", "macOS"],
-    storeId: "9PGVWXD8X93N",
-    winget: "rgdevment.Tisty",
-    cask: "tisty",
-    accent: "#6F4BD8",
-    en: {
-      tagline: "Notes, documents and tasks, in files you can read without it.",
-      problem:
-        "Your notes live inside somebody else's application. The day it shuts down, or the subscription lapses, you find out what you actually own.",
-      what: [
-        "Notes, documents and tasks kept as plain files on your own disk.",
-        "No account and no server: nothing is synchronised unless you put the folder somewhere that synchronises.",
-        "An MCP door your assistant can knock on, so a model can read and write what you keep, with your permission.",
-      ],
-      privacy:
-        "Local-first by design. The files are yours and readable without Tisty running.",
-      faq: [
-        {
-          q: "What happens to my notes if Tisty disappears?",
-          a: "Nothing. They are plain files on your disk and any editor opens them.",
-        },
-        {
-          q: "What is the MCP door for?",
-          a: "It lets an assistant read and write your notes and tasks through the Model Context Protocol, on your machine and with your permission.",
-        },
-      ],
-    },
-    es: {
-      tagline: "Notas, documentos y tareas, en archivos que puedes leer sin él.",
-      problem:
-        "Tus notas viven dentro de la aplicación de otro. El día que cierre, o que se acabe la suscripción, descubres qué es tuyo de verdad.",
-      what: [
-        "Notas, documentos y tareas guardados como archivos corrientes en tu propio disco.",
-        "Sin cuenta y sin servidor: no se sincroniza nada salvo que tú pongas la carpeta en un sitio que sincronice.",
-        "Una puerta MCP a la que tu asistente puede llamar, para que un modelo lea y escriba lo que guardas, con tu permiso.",
-      ],
-      privacy:
-        "Local por diseño. Los archivos son tuyos y se leen sin que Tisty esté abierto.",
-      faq: [
-        {
-          q: "¿Qué pasa con mis notas si Tisty desaparece?",
-          a: "Nada. Son archivos corrientes en tu disco y los abre cualquier editor.",
-        },
-        {
-          q: "¿Para qué sirve la puerta MCP?",
-          a: "Permite que un asistente lea y escriba tus notas y tareas por el Model Context Protocol, en tu equipo y con tu permiso.",
         },
       ],
     },
