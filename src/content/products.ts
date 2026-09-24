@@ -34,6 +34,13 @@ export const PRODUCTS: Product[] = [
     storeId: "9PGVWXD8X93N",
     winget: "rgdevment.Tisty",
     cask: "tisty",
+    shot: {
+      src: "/tisty-record.png",
+      width: 1366,
+      height: 768,
+      en: "Tisty showing the day's tasks beside the document tree, with folders for reference, guides and personal notes",
+      es: "Tisty con las tareas del dia junto al arbol de documentos, con carpetas de referencia, guias y notas personales",
+    },
     accent: "#6F4BD8",
     en: {
       tagline: "Notes, documents and tasks, in files you can read without it.",
@@ -160,6 +167,13 @@ export const PRODUCTS: Product[] = [
     storeId: "9NBJRZF3K856",
     cask: "copypaste",
     scoop: "copypaste",
+    shot: {
+      src: "/copypaste-panel.png",
+      width: 420,
+      height: 540,
+      en: "The CopyPaste panel with its search box, the filters by kind, and a history holding an image, a piece of text and a file",
+      es: "El panel de CopyPaste con su buscador, los filtros por tipo, y un historial con una imagen, un texto y un archivo",
+    },
     accent: "#1E7A52",
     en: {
       tagline: "Everything you copied, still there.",
