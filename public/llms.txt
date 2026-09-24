@@ -1,0 +1,33 @@
+# rgdevment
+
+> Three free, open source desktop programs for Windows and macOS, built by Mario Hidalgo G. (rgdevment). No account, no telemetry, no server, no paid tier. Everything each one keeps stays on the user's own disk.
+
+Motto: software out of conviction, not subscription.
+
+## Tools
+
+- [LinkUnbound](https://rgdevment.com/linkunbound/): Chooses which browser opens every link. Registers as the default browser on Windows and macOS; a rule can match the site, a browser profile, or the application the link came from. Unwraps Microsoft SafeLinks. GPL-3.0-only.
+- [CopyPaste](https://rgdevment.com/copypaste/): Clipboard manager keeping a searchable local history. Ignores clipboard content from password managers. Windows and macOS. GPL-3.0.
+- [Tisty](https://rgdevment.com/tisty/): Notes, documents and tasks kept as plain files on disk, readable without the application. Exposes an MCP server so an assistant can read and write them with permission. Windows and macOS. AGPL-3.0.
+
+## Guides
+
+- [Open Teams links in a different browser](https://rgdevment.com/guides/open-teams-links-in-another-browser/): The setting Teams carries, what it does not fix, and routing per link.
+- [Open Outlook links in Chrome or Firefox](https://rgdevment.com/guides/open-outlook-links-in-chrome-or-firefox/): The classic Outlook setting under File, Options, Advanced, and what it leaves out.
+- [Send work links to a Chrome profile](https://rgdevment.com/guides/send-work-links-to-a-chrome-profile/): Why Chrome opens the wrong profile and how to route by profile.
+- [A Browserosaurus alternative still maintained](https://rgdevment.com/guides/browserosaurus-alternative/): What happened to Browserosaurus and what the alternatives are on each platform.
+
+## Spanish
+
+- [Inicio](https://rgdevment.com/es/)
+- [LinkUnbound](https://rgdevment.com/es/linkunbound/)
+- [CopyPaste](https://rgdevment.com/es/copypaste/)
+- [Tisty](https://rgdevment.com/es/tisty/)
+- [Guía: enlaces de Teams](https://rgdevment.com/es/guias/abrir-enlaces-de-teams-en-otro-navegador/)
+- [Guía: enlaces de Outlook](https://rgdevment.com/es/guias/abrir-enlaces-de-outlook-en-chrome-o-firefox/)
+- [Guía: perfiles de Chrome](https://rgdevment.com/es/guias/enviar-enlaces-de-trabajo-a-un-perfil-de-chrome/)
+- [Guía: alternativa a Browserosaurus](https://rgdevment.com/es/guias/alternativa-a-browserosaurus/)
+
+## Source
+
+- [GitHub](https://github.com/rgdevment)

@@ -1,0 +1,137 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { type Guide, written } from "../content/guides";
+import { PRODUCTS, words } from "../content/products";
+import { DOMAIN, canonical, href, type Locale } from "../site";
+
+interface Props {
+  guide: Guide;
+  locale: Locale;
+}
+
+const { guide, locale } = Astro.props;
+const t = written(guide, locale);
+const es = locale === "es";
+const product = PRODUCTS.find((one) => one.slug === guide.product)!;
+
+const say = {
+  home: es ? "Inicio" : "Home",
+  guides: es ? "Guías" : "Guides",
+  faq: es ? "Preguntas" : "Questions",
+  more: es ? "Más sobre" : "More about",
+};
+
+const paths = { en: guide.en.slug, es: guide.es.slug };
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: t.nativeTitle,
+    description: t.description,
+    step: t.nativeSteps.map((one, at) => ({
+      "@type": "HowToStep",
+      position: at + 1,
+      name: one.title,
+      text: one.body,
+    })),
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: t.faq.map((one) => ({
+      "@type": "Question",
+      name: one.q,
+      acceptedAnswer: { "@type": "Answer", text: one.a },
+    })),
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: say.home, item: `${DOMAIN}${href(locale)}` },
+      { "@type": "ListItem", position: 2, name: t.title, item: canonical(locale, t.slug) },
+    ],
+  },
+];
+---
+
+<Layout
+  title={t.title}
+  description={t.description}
+  locale={locale}
+  path={t.slug}
+  paths={paths}
+  schema={schema}
+>
+  <nav class="mb-10 text-sm text-gray-500">
+    <a class="hover:text-gray-300" href={href(locale)}>{say.home}</a>
+    <span class="px-2">/</span>
+    <a class="hover:text-gray-300" href={href(locale, es ? "guias" : "guides")}>{say.guides}</a>
+  </nav>
+
+  <article>
+    <h1 class="text-3xl font-bold tracking-tight sm:text-4xl">{t.title}</h1>
+    <p class="mt-6 text-lg leading-relaxed text-gray-400">{t.lede}</p>
+
+    <section class="mt-14">
+      <h2 class="text-2xl font-semibold">{t.nativeTitle}</h2>
+      <ol class="mt-6 space-y-6">
+        {
+          t.nativeSteps.map((one, at) => (
+            <li class="flex gap-4">
+              <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gray-800 text-sm text-gray-300">
+                {at + 1}
+              </span>
+              <div>
+                <h3 class="font-medium text-gray-100">{one.title}</h3>
+                <p class="mt-1 leading-relaxed text-gray-400">{one.body}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </section>
+
+    <section class="mt-14">
+      <h2 class="text-2xl font-semibold">{t.gapTitle}</h2>
+      <ul class="mt-5 space-y-4">
+        {t.gap.map((one) => <li class="border-l-2 border-gray-700 pl-4 text-gray-400">{one}</li>)}
+      </ul>
+    </section>
+
+    <section class="mt-14">
+      <h2 class="text-2xl font-semibold">{t.toolTitle}</h2>
+      <ul class="mt-5 space-y-4">
+        {
+          t.tool.map((one) => (
+            <li class="border-l-2 pl-4 text-gray-300" style={`border-color: ${product.accent}`}>
+              {one}
+            </li>
+          ))
+        }
+      </ul>
+      <a
+        class="mt-8 inline-block rounded-lg border border-gray-700 px-5 py-3 transition hover:border-gray-500 hover:bg-gray-900"
+        href={href(locale, product.slug)}
+      >
+        {say.more} {product.name}
+        <span class="mt-1 block text-sm text-gray-500">{words(product, locale).tagline}</span>
+      </a>
+    </section>
+
+    <section class="mt-14">
+      <h2 class="text-2xl font-semibold">{say.faq}</h2>
+      <div class="mt-5 space-y-6">
+        {
+          t.faq.map((one) => (
+            <div>
+              <h3 class="font-medium text-gray-100">{one.q}</h3>
+              <p class="mt-2 leading-relaxed text-gray-400">{one.a}</p>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+  </article>
+</Layout>

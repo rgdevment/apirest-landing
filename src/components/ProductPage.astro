@@ -1,0 +1,220 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { GUIDES, written } from "../content/guides";
+import { type Product, storeUrl, words } from "../content/products";
+import { DOMAIN, canonical, href, type Locale } from "../site";
+
+interface Props {
+  product: Product;
+  locale: Locale;
+}
+
+const { product, locale } = Astro.props;
+const t = words(product, locale);
+const es = locale === "es";
+const store = storeUrl(product);
+const path = product.slug;
+
+const guides = GUIDES.filter((one) => one.product === product.slug);
+
+const say = {
+  guides: es ? "Guías" : "Guides",
+  what: es ? "Qué hace" : "What it does",
+  install: es ? "Cómo se instala" : "How to install it",
+  privacy: es ? "Privacidad" : "Privacy",
+  faq: es ? "Preguntas" : "Questions",
+  source: es ? "Código fuente" : "Source code",
+  home: es ? "Inicio" : "Home",
+  free: es ? "Gratis y de código abierto" : "Free and open source",
+  direct: es ? "Descarga directa" : "Direct download",
+};
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: product.name,
+    description: t.tagline,
+    applicationCategory: "UtilitiesApplication",
+    operatingSystem: product.platforms.join(", "),
+    url: canonical(locale, path),
+    license: product.repo + "/blob/main/LICENSE",
+    isAccessibleForFree: true,
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    author: { "@type": "Person", name: "Mario Hidalgo G." },
+    softwareHelp: product.repo,
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: t.faq.map((one) => ({
+      "@type": "Question",
+      name: one.q,
+      acceptedAnswer: { "@type": "Answer", text: one.a },
+    })),
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: say.home, item: `${DOMAIN}${href(locale)}` },
+      { "@type": "ListItem", position: 2, name: product.name, item: canonical(locale, path) },
+    ],
+  },
+];
+---
+
+<Layout
+  title={`${product.name} - ${t.tagline}`}
+  description={t.problem}
+  locale={locale}
+  path={path}
+  schema={schema}
+>
+  <nav class="mb-10 text-sm text-gray-500">
+    <a class="hover:text-gray-300" href={href(locale)}>{say.home}</a>
+    <span class="px-2">/</span>
+    <span class="text-gray-300">{product.name}</span>
+  </nav>
+
+  <header>
+    <h1 class="text-4xl font-bold tracking-tight sm:text-5xl">{product.name}</h1>
+    <p class="mt-3 text-xl text-gray-300">{t.tagline}</p>
+    <p class="mt-6 text-lg leading-relaxed text-gray-400">{t.problem}</p>
+    <p class="mt-6 flex flex-wrap gap-2 text-sm">
+      {
+        product.platforms.map((one) => (
+          <span class="rounded-md border border-gray-700 px-3 py-1 text-gray-400">{one}</span>
+        ))
+      }
+      <span class="rounded-md border border-gray-700 px-3 py-1 text-gray-400">
+        {product.licence}
+      </span>
+      <span class="rounded-md border border-gray-700 px-3 py-1 text-gray-400">{say.free}</span>
+    </p>
+  </header>
+
+  <section class="mt-14">
+    <h2 class="text-2xl font-semibold">{say.what}</h2>
+    <ul class="mt-5 space-y-4">
+      {
+        t.what.map((one) => (
+          <li class="border-l-2 pl-4 text-gray-300" style={`border-color: ${product.accent}`}>
+            {one}
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="mt-14">
+    <h2 class="text-2xl font-semibold">{say.install}</h2>
+    <dl class="mt-5 space-y-5">
+      {
+        store && (
+          <div>
+            <dt class="font-medium text-gray-200">Windows</dt>
+            <dd class="mt-1 text-gray-400">
+              <a class="underline hover:text-gray-200" href={store} rel="noopener">
+                Microsoft Store
+              </a>
+            </dd>
+          </div>
+        )
+      }
+      {
+        product.winget && (
+          <div>
+            <dt class="font-medium text-gray-200">winget</dt>
+            <dd class="mt-1">
+              <code class="rounded bg-gray-900 px-2 py-1 text-gray-300">
+                winget install {product.winget}
+              </code>
+            </dd>
+          </div>
+        )
+      }
+      {
+        product.scoop && (
+          <div>
+            <dt class="font-medium text-gray-200">Scoop</dt>
+            <dd class="mt-1">
+              <code class="rounded bg-gray-900 px-2 py-1 text-gray-300">
+                scoop bucket add rgdevment https://github.com/rgdevment/scoop-bucket && scoop
+                install {product.scoop}
+              </code>
+            </dd>
+          </div>
+        )
+      }
+      {
+        product.cask && (
+          <div>
+            <dt class="font-medium text-gray-200">macOS</dt>
+            <dd class="mt-1">
+              <code class="rounded bg-gray-900 px-2 py-1 text-gray-300">
+                brew tap rgdevment/tap && brew install --cask {product.cask}
+              </code>
+            </dd>
+          </div>
+        )
+      }
+      <div>
+        <dt class="font-medium text-gray-200">{say.direct}</dt>
+        <dd class="mt-1 text-gray-400">
+          <a class="underline hover:text-gray-200" href={`${product.repo}/releases`} rel="noopener">
+            GitHub Releases
+          </a>
+        </dd>
+      </div>
+    </dl>
+  </section>
+
+  <section class="mt-14">
+    <h2 class="text-2xl font-semibold">{say.privacy}</h2>
+    <p class="mt-4 text-gray-300">{t.privacy}</p>
+  </section>
+
+  <section class="mt-14">
+    <h2 class="text-2xl font-semibold">{say.faq}</h2>
+    <div class="mt-5 space-y-6">
+      {
+        t.faq.map((one) => (
+          <div>
+            <h3 class="font-medium text-gray-100">{one.q}</h3>
+            <p class="mt-2 leading-relaxed text-gray-400">{one.a}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  {
+    guides.length > 0 && (
+      <section class="mt-14">
+        <h2 class="text-2xl font-semibold">{say.guides}</h2>
+        <ul class="mt-5 space-y-3">
+          {guides.map((one) => (
+            <li>
+              <a
+                class="block rounded-lg border border-gray-800 p-4 transition hover:border-gray-700 hover:bg-gray-900"
+                href={href(locale, written(one, locale).slug)}
+              >
+                <span class="font-medium text-gray-100">{written(one, locale).title}</span>
+                <span class="mt-1 block text-sm text-gray-500">
+                  {written(one, locale).description}
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )
+  }
+
+  <section class="mt-14 border-t border-gray-800 pt-8">
+    <a class="text-gray-400 underline hover:text-gray-200" href={product.repo} rel="noopener">
+      {say.source}
+    </a>
+  </section>
+</Layout>

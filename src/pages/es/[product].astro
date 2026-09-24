@@ -1,0 +1,12 @@
+---
+import ProductPage from "../../components/ProductPage.astro";
+import { PRODUCTS } from "../../content/products";
+
+export function getStaticPaths() {
+  return PRODUCTS.map((product) => ({ params: { product: product.slug }, props: { product } }));
+}
+
+const { product } = Astro.props;
+---
+
+<ProductPage product={product} locale="es" />

@@ -1,40 +1,106 @@
 ---
+import { DOMAIN, LOCALES, canonical, href, type Locale } from "../site";
+
 interface Props {
-	title: string;
+  title: string;
+  description: string;
+  locale: Locale;
+  path?: string;
+  paths?: Partial<Record<Locale, string>>;
+  image?: string;
+  schema?: Record<string, unknown> | Record<string, unknown>[];
 }
 
-const { title } = Astro.props;
+const { title, description, locale, path = "", paths, image, schema } = Astro.props;
+
+/// A guide keeps a different slug in each language, so the twin of a page is looked up rather
+/// than assumed: without that the hreflang pair would point at a URL that does not exist.
+const at = (one: Locale) => paths?.[one] ?? path;
+const url = canonical(locale, at(locale));
+const social = new URL(image ?? (locale === "es" ? "/social-es.png" : "/social.png"), DOMAIN).toString();
+const graphs = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
 ---
 
 <!doctype html>
-<html lang="es" class="scroll-smooth">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content="apirest.cl - Servicios Open Source Gratuitos" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-	</head>
-	<body class="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-gray-100 font-sans antialiased selection:bg-violet-500 selection:text-white">
-		<main class="max-w-4xl mx-auto px-6 py-12">
-			<slot />
-		</main>
-	</body>
-</html>
+<html lang={locale} class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={url} />
 
-<style is:global>
-	::-webkit-scrollbar {
-		width: 10px;
-	}
-	::-webkit-scrollbar-track {
-		background: #1f2937;
-	}
-	::-webkit-scrollbar-thumb {
-		background: #4b5563;
-		border-radius: 5px;
-	}
-	::-webkit-scrollbar-thumb:hover {
-		background: #6b7280;
-	}
-</style>
+    {
+      LOCALES.map((one) => (
+        <link rel="alternate" hreflang={one} href={canonical(one, at(one))} />
+      ))
+    }
+    <link rel="alternate" hreflang="x-default" href={canonical("en", at("en"))} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={url} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={social} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={title} />
+    <meta property="og:locale" content={locale === "es" ? "es_ES" : "en_US"} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={social} />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+
+    {
+      graphs.map((graph) => (
+        <script
+          type="application/ld+json"
+          set:html={JSON.stringify(graph)}
+        />
+      ))
+    }
+  </head>
+  <body
+    class="bg-gray-950 text-gray-100 font-sans antialiased selection:bg-violet-500 selection:text-white"
+  >
+    <a
+      href="#content"
+      class="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-50 focus:rounded-md focus:bg-violet-600 focus:px-4 focus:py-2"
+    >
+      {locale === "es" ? "Ir al contenido" : "Skip to content"}
+    </a>
+
+    <main id="content" class="mx-auto max-w-3xl px-6 py-14">
+      <slot />
+    </main>
+
+    <footer class="mx-auto max-w-3xl px-6 pb-14 text-sm text-gray-500">
+      <p>
+        {
+          locale === "es"
+            ? "Software por convicción, no por suscripción."
+            : "Software out of conviction, not subscription."
+        }
+      </p>
+      <p class="mt-2">
+        {
+          LOCALES.map((one, index) => (
+            <>
+              {index > 0 && <span class="px-2">·</span>}
+              {one === locale ? (
+                <span class="text-gray-300">{one === "es" ? "Español" : "English"}</span>
+              ) : (
+                <a class="hover:text-gray-300" href={href(one, at(one))}>
+                  {one === "es" ? "Español" : "English"}
+                </a>
+              )}
+            </>
+          ))
+        }
+      </p>
+    </footer>
+  </body>
+</html>

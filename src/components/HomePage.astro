@@ -1,0 +1,121 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { PRODUCTS, words } from "../content/products";
+import { DOMAIN, canonical, href, type Locale } from "../site";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const es = locale === "es";
+
+const say = es
+  ? {
+      title: "Herramientas de escritorio que son tuyas",
+      description:
+        "Tres programas gratuitos y de código abierto para Windows y macOS: un selector de navegador, un gestor de portapapeles y unas notas locales. Sin cuenta, sin telemetría y sin suscripción.",
+      motto: "Software por convicción, no por suscripción.",
+      lede: "Tres programas para Windows y macOS que hacen una cosa y se apartan. Guardan lo suyo en tu disco, no piden cuenta y no mandan nada a ninguna parte. Son gratis, y lo seguirán siendo.",
+      tools: "Las herramientas",
+      why: "Por qué existen",
+      whyText: [
+        "Cada uno nació de un fastidio propio: enlaces que se abrían donde no tocaba, algo copiado que ya no estaba, notas encerradas en la aplicación de otro.",
+        "No hay versión de pago ni funciones guardadas detrás de un muro, porque no se mantienen con el dinero de nadie. El código está publicado entero, con su licencia, para que cualquiera lo lea, lo cambie o siga por su cuenta si esto se acaba.",
+        "Tampoco hay telemetría. No se sabe cuánta gente los usa, y esa es exactamente la idea.",
+      ],
+      see: "Ver",
+      guides: "Guías",
+      guidesLede:
+        "Cómo abrir los enlaces de Teams o de Outlook donde tú quieras, y qué hacer cuando el ajuste de la aplicación no basta.",
+    }
+  : {
+      title: "Desktop tools that are yours",
+      description:
+        "Three free and open source programs for Windows and macOS: a browser picker, a clipboard manager and local-first notes. No account, no telemetry, no subscription.",
+      motto: "Software out of conviction, not subscription.",
+      lede: "Three programs for Windows and macOS that do one thing and get out of the way. They keep what is theirs on your disk, ask for no account, and send nothing anywhere. They are free, and they will stay that way.",
+      tools: "The tools",
+      why: "Why they exist",
+      whyText: [
+        "Each one came from an annoyance of my own: links opening where they should not, something copied that was no longer there, notes locked inside somebody else's application.",
+        "There is no paid tier and nothing kept behind a wall, because nobody's money keeps them running. The source is published in full, with its licence, so anyone can read it, change it, or carry on alone if this ever stops.",
+        "There is no telemetry either. I do not know how many people use them, and that is exactly the point.",
+      ],
+      see: "See",
+      guides: "Guides",
+      guidesLede:
+        "How to open Teams or Outlook links where you meant them to go, and what to do when the application's own setting is not enough.",
+    };
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: say.title,
+  description: say.description,
+  url: canonical(locale),
+  hasPart: PRODUCTS.map((p) => ({
+    "@type": "SoftwareApplication",
+    name: p.name,
+    description: words(p, locale).tagline,
+    applicationCategory: "UtilitiesApplication",
+    operatingSystem: p.platforms.join(", "),
+    url: canonical(locale, p.slug),
+    isAccessibleForFree: true,
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+  })),
+  publisher: { "@type": "Person", name: "Mario Hidalgo G.", url: `${DOMAIN}${href(locale)}` },
+};
+---
+
+<Layout title={say.title} description={say.description} locale={locale} schema={schema}>
+  <header>
+    <h1 class="text-4xl font-bold tracking-tight sm:text-5xl">{say.title}</h1>
+    <p class="mt-4 text-xl text-gray-300">{say.motto}</p>
+    <p class="mt-6 text-lg leading-relaxed text-gray-400">{say.lede}</p>
+  </header>
+
+  <section class="mt-16">
+    <h2 class="text-2xl font-semibold">{say.tools}</h2>
+    <div class="mt-6 space-y-4">
+      {
+        PRODUCTS.map((product) => (
+          <a
+            class="block rounded-xl border border-gray-800 bg-gray-900/40 p-6 transition hover:border-gray-700 hover:bg-gray-900"
+            href={href(locale, product.slug)}
+          >
+            <div class="flex items-baseline gap-3">
+              <span
+                class="inline-block h-3 w-3 shrink-0 rounded-full"
+                style={`background: ${product.accent}`}
+                aria-hidden="true"
+              />
+              <h3 class="text-xl font-semibold">{product.name}</h3>
+              <span class="text-sm text-gray-500">{product.platforms.join(" · ")}</span>
+            </div>
+            <p class="mt-2 text-gray-300">{words(product, locale).tagline}</p>
+            <p class="mt-3 text-sm leading-relaxed text-gray-500">
+              {words(product, locale).problem}
+            </p>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="mt-16">
+    <h2 class="text-2xl font-semibold">{say.guides}</h2>
+    <p class="mt-3 text-gray-400">{say.guidesLede}</p>
+    <a
+      class="mt-5 inline-block rounded-lg border border-gray-800 px-5 py-3 transition hover:border-gray-600 hover:bg-gray-900"
+      href={href(locale, es ? "guias" : "guides")}
+    >
+      {say.guides}
+    </a>
+  </section>
+
+  <section class="mt-16">
+    <h2 class="text-2xl font-semibold">{say.why}</h2>
+    {say.whyText.map((one) => <p class="mt-4 leading-relaxed text-gray-400">{one}</p>)}
+  </section>
+</Layout>
