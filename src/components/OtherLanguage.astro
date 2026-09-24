@@ -1,0 +1,38 @@
+---
+import { href, type Locale } from "../site";
+
+interface Props {
+  locale: Locale;
+  other: string;
+}
+
+const { locale, other } = Astro.props;
+const there: Locale = locale === "es" ? "en" : "es";
+const say =
+  there === "es"
+    ? { text: "Esta página también está en español.", go: "Leerla en español" }
+    : { text: "This page is also available in English.", go: "Read it in English" };
+---
+
+<!--
+  A suggestion, never a redirect: sending visitors elsewhere on their own would keep crawlers from
+  reaching both versions and would trap anyone who came for this one on purpose. The markup ships
+  hidden and is only revealed, so a reader without scripts loses nothing.
+-->
+<div id="other-language" hidden data-there={there} class="border-b border-gray-800 bg-gray-900">
+  <p class="mx-auto flex max-w-3xl flex-wrap items-center gap-x-3 gap-y-1 px-6 py-2.5 text-sm">
+    <span class="text-gray-400" lang={there}>{say.text}</span>
+    <a class="font-medium text-gray-100 underline hover:text-white" href={href(there, other)} lang={there} hreflang={there}>
+      {say.go}
+    </a>
+  </p>
+</div>
+
+<script is:inline>
+  (() => {
+    const box = document.getElementById("other-language");
+    if (!box) return;
+    const wants = (navigator.language || "").slice(0, 2).toLowerCase();
+    if (wants === box.dataset.there) box.hidden = false;
+  })();
+</script>

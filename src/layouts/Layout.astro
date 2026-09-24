@@ -1,5 +1,6 @@
 ---
 import Nav from "../components/Nav.astro";
+import OtherLanguage from "../components/OtherLanguage.astro";
 import { DOMAIN, LOCALES, canonical, href, type Locale } from "../site";
 
 interface Props {
@@ -75,6 +76,8 @@ const graphs = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
     >
       {locale === "es" ? "Ir al contenido" : "Skip to content"}
     </a>
+
+    <OtherLanguage locale={locale} other={at(locale === "es" ? "en" : "es")} />
 
     <Nav locale={locale} here={here} other={at(locale === "es" ? "en" : "es")} />
 
