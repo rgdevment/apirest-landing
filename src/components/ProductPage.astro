@@ -27,8 +27,6 @@ const say = {
   home: es ? "Inicio" : "Home",
   free: es ? "Gratis y de código abierto" : "Free and open source",
   direct: es ? "Descarga directa" : "Direct download",
-  get: es ? "Descargar para Windows" : "Get it for Windows",
-  mac: es ? "Instalar en macOS" : "Install on macOS",
   ways: es ? "Todas las formas de instalarlo" : "Every way to install it",
 };
 
@@ -106,25 +104,15 @@ const schema = [
 
     <p class="mt-8 flex flex-wrap items-center gap-3">
       {
-        store && (
+        product.platforms.map((one) => (
           <a
-            class="rounded-lg bg-gray-100 px-5 py-3 font-medium text-gray-950 transition hover:bg-white"
-            href={store}
-            rel="noopener"
+            class="rounded-lg border border-gray-700 px-5 py-3 font-medium transition hover:border-gray-500 hover:bg-gray-900"
+            href={one === "Windows" && store ? store : "#install"}
+            rel={one === "Windows" && store ? "noopener" : undefined}
           >
-            {say.get}
+            {one}
           </a>
-        )
-      }
-      {
-        product.cask && (
-          <a
-            class="rounded-lg border border-gray-700 px-5 py-3 transition hover:border-gray-500 hover:bg-gray-900"
-            href="#install"
-          >
-            {say.mac}
-          </a>
-        )
+        ))
       }
       <a class="text-sm text-gray-500 underline transition hover:text-gray-300" href="#install">
         {say.ways}
