@@ -41,7 +41,14 @@ const schema = [
     applicationCategory: "UtilitiesApplication",
     operatingSystem: product.platforms.join(", "),
     url: canonical(locale, path),
-    ...(product.shot ? { screenshot: new URL(product.shot.src, DOMAIN).toString() } : {}),
+    ...(product.shot
+      ? {
+          screenshot: new URL(
+            locale === "es" && product.shot.srcEs ? product.shot.srcEs : product.shot.src,
+            DOMAIN,
+          ).toString(),
+        }
+      : {}),
     license: product.repo + "/blob/main/LICENSE",
     isAccessibleForFree: true,
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
@@ -129,7 +136,7 @@ const schema = [
     product.shot && (
       <p class="mt-12">
         <img
-          src={product.shot.src}
+          src={es && product.shot.srcEs ? product.shot.srcEs : product.shot.src}
           width={product.shot.width}
           height={product.shot.height}
           alt={es ? product.shot.es : product.shot.en}

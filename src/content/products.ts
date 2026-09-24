@@ -18,7 +18,14 @@ export type Product = {
   winget?: string;
   cask?: string;
   scoop?: string;
-  shot?: { src: string; width: number; height: number; en: string; es: string };
+  shot?: {
+    src: string;
+    srcEs?: string;
+    width: number;
+    height: number;
+    en: string;
+    es: string;
+  };
   accent: string;
   en: Words;
   es: Words;
@@ -35,11 +42,12 @@ export const PRODUCTS: Product[] = [
     winget: "rgdevment.Tisty",
     cask: "tisty",
     shot: {
-      src: "/tisty-record.png",
-      width: 1366,
-      height: 768,
-      en: "Tisty showing the day's tasks beside the document tree, with folders for reference, guides and personal notes",
-      es: "Tisty con las tareas del dia junto al arbol de documentos, con carpetas de referencia, guias y notas personales",
+      src: "/tisty-social.png",
+      srcEs: "/tisty-social-es.png",
+      width: 1280,
+      height: 640,
+      en: "Tisty: notes, documents and tasks, with the day's list beside the documents kept on disk",
+      es: "Tisty: notas, documentos y tareas, con la lista del dia junto a los documentos guardados en disco",
     },
     accent: "#6F4BD8",
     en: {
@@ -96,11 +104,12 @@ export const PRODUCTS: Product[] = [
     storeId: "9N9F7C8Q43KC",
     cask: "linkunbound",
     shot: {
-      src: "/linkunbound-picker.gif",
-      width: 700,
-      height: 440,
-      en: "A link clicked inside a desktop application; the picker opens beside the cursor naming the address and the application it came from, and the link opens in the browser chosen",
-      es: "Un enlace pulsado dentro de una aplicación de escritorio; el selector se abre junto al cursor nombrando la dirección y la aplicación de la que viene, y el enlace se abre en el navegador elegido",
+      src: "/linkunbound-social.png",
+      srcEs: "/linkunbound-social-es.png",
+      width: 1280,
+      height: 640,
+      en: "LinkUnbound: the picker beside a link, listing the installed browsers with the profile each one opens",
+      es: "LinkUnbound: el selector junto a un enlace, con los navegadores instalados y el perfil en que abre cada uno",
     },
     accent: "#2F62D8",
     en: {
@@ -168,11 +177,11 @@ export const PRODUCTS: Product[] = [
     cask: "copypaste",
     scoop: "copypaste",
     shot: {
-      src: "/copypaste-panel.png",
-      width: 420,
-      height: 540,
-      en: "The CopyPaste panel with its search box, the filters by kind, and a history holding an image, a piece of text and a file",
-      es: "El panel de CopyPaste con su buscador, los filtros por tipo, y un historial con una imagen, un texto y un archivo",
+      src: "/copypaste-social.png",
+      width: 1280,
+      height: 640,
+      en: "CopyPaste: the clipboard panel with its search box and a history of text, images and files",
+      es: "CopyPaste: el panel del portapapeles con su buscador y un historial de textos, imagenes y archivos",
     },
     accent: "#1E7A52",
     en: {
