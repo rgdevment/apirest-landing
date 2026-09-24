@@ -1,0 +1,44 @@
+---
+import { PRODUCTS } from "../content/products";
+import { href, type Locale } from "../site";
+
+interface Props {
+  locale: Locale;
+  here?: string;
+}
+
+const { locale, here } = Astro.props;
+const es = locale === "es";
+const guides = es ? "guias" : "guides";
+---
+
+<header class="border-b border-gray-900">
+  <nav
+    aria-label={es ? "Principal" : "Main"}
+    class="mx-auto flex max-w-3xl flex-wrap items-center gap-x-5 gap-y-2 px-6 py-4 text-sm"
+  >
+    <a class="font-semibold text-gray-100 hover:text-white" href={href(locale)}>rgdevment</a>
+    {
+      PRODUCTS.map((product) => (
+        <a
+          class={
+            here === product.slug
+              ? "text-gray-100"
+              : "text-gray-500 transition hover:text-gray-300"
+          }
+          aria-current={here === product.slug ? "page" : undefined}
+          href={href(locale, product.slug)}
+        >
+          {product.name}
+        </a>
+      ))
+    }
+    <a
+      class={here === "guides" ? "text-gray-100" : "text-gray-500 transition hover:text-gray-300"}
+      aria-current={here === "guides" ? "page" : undefined}
+      href={href(locale, guides)}
+    >
+      {es ? "Guías" : "Guides"}
+    </a>
+  </nav>
+</header>

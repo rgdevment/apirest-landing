@@ -1,4 +1,5 @@
 ---
+import Nav from "../components/Nav.astro";
 import { DOMAIN, LOCALES, canonical, href, type Locale } from "../site";
 
 interface Props {
@@ -8,10 +9,11 @@ interface Props {
   path?: string;
   paths?: Partial<Record<Locale, string>>;
   image?: string;
+  here?: string;
   schema?: Record<string, unknown> | Record<string, unknown>[];
 }
 
-const { title, description, locale, path = "", paths, image, schema } = Astro.props;
+const { title, description, locale, path = "", paths, image, here, schema } = Astro.props;
 
 /// A guide keeps a different slug in each language, so the twin of a page is looked up rather
 /// than assumed: without that the hreflang pair would point at a URL that does not exist.
@@ -38,6 +40,7 @@ const graphs = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
     <link rel="alternate" hreflang="x-default" href={canonical("en", at("en"))} />
 
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="rgdevment" />
     <meta property="og:url" content={url} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -72,6 +75,8 @@ const graphs = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
     >
       {locale === "es" ? "Ir al contenido" : "Skip to content"}
     </a>
+
+    <Nav locale={locale} here={here} />
 
     <main id="content" class="mx-auto max-w-3xl px-6 py-14">
       <slot />

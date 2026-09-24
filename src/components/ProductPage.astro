@@ -38,6 +38,7 @@ const schema = [
     applicationCategory: "UtilitiesApplication",
     operatingSystem: product.platforms.join(", "),
     url: canonical(locale, path),
+    ...(product.shot ? { screenshot: new URL(product.shot.src, DOMAIN).toString() } : {}),
     license: product.repo + "/blob/main/LICENSE",
     isAccessibleForFree: true,
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
@@ -93,6 +94,22 @@ const schema = [
       <span class="rounded-md border border-gray-700 px-3 py-1 text-gray-400">{say.free}</span>
     </p>
   </header>
+
+  {
+    product.shot && (
+      <p class="mt-12">
+        <img
+          src={product.shot.src}
+          width={product.shot.width}
+          height={product.shot.height}
+          alt={es ? product.shot.es : product.shot.en}
+          loading="lazy"
+          decoding="async"
+          class="w-full rounded-xl border border-gray-800"
+        />
+      </p>
+    )
+  }
 
   <section class="mt-14">
     <h2 class="text-2xl font-semibold">{say.what}</h2>

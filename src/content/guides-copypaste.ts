@@ -4,6 +4,7 @@ export const COPYPASTE_GUIDES: Guide[] = [
   {
     id: "windows-clipboard-history",
     product: "copypaste",
+    published: "2026-09-24",
     en: {
       slug: "guides/windows-clipboard-history",
       title: "Windows clipboard history: what Win+V does and where it stops",
@@ -108,6 +109,7 @@ export const COPYPASTE_GUIDES: Guide[] = [
   {
     id: "mac-clipboard-history",
     product: "copypaste",
+    published: "2026-09-24",
     en: {
       slug: "guides/clipboard-history-on-mac",
       title: "Clipboard history on macOS: why there is not one",

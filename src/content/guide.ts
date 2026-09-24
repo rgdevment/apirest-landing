@@ -16,7 +16,13 @@ export type Written = {
   faq: { q: string; a: string }[];
 };
 
-export type Guide = { id: string; product: string; en: Written; es: Written };
+export type Guide = {
+  id: string;
+  product: string;
+  published: string;
+  en: Written;
+  es: Written;
+};
 
 export function written(guide: Guide, locale: Locale): Written {
   return locale === "es" ? guide.es : guide.en;

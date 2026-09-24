@@ -18,6 +18,7 @@ export type Product = {
   winget?: string;
   cask?: string;
   scoop?: string;
+  shot?: { src: string; width: number; height: number; en: string; es: string };
   accent: string;
   en: Words;
   es: Words;
@@ -87,6 +88,13 @@ export const PRODUCTS: Product[] = [
     platforms: ["Windows", "macOS"],
     storeId: "9N9F7C8Q43KC",
     cask: "linkunbound",
+    shot: {
+      src: "/linkunbound-picker.gif",
+      width: 700,
+      height: 440,
+      en: "A link clicked inside a desktop application; the picker opens beside the cursor naming the address and the application it came from, and the link opens in the browser chosen",
+      es: "Un enlace pulsado dentro de una aplicación de escritorio; el selector se abre junto al cursor nombrando la dirección y la aplicación de la que viene, y el enlace se abre en el navegador elegido",
+    },
     accent: "#2F62D8",
     en: {
       tagline: "Choose which browser opens every link.",

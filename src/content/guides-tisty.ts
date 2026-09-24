@@ -4,6 +4,7 @@ export const TISTY_GUIDES: Guide[] = [
   {
     id: "notes-outlive-the-app",
     product: "tisty",
+    published: "2026-09-24",
     en: {
       slug: "guides/notes-you-can-read-without-the-app",
       title: "Notes you can still read if the app disappears",
@@ -98,6 +99,7 @@ export const TISTY_GUIDES: Guide[] = [
   {
     id: "assistant-reads-notes",
     product: "tisty",
+    published: "2026-09-24",
     en: {
       slug: "guides/let-an-assistant-read-your-notes",
       title: "Let an AI assistant read your notes without uploading them",

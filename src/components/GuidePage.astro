@@ -1,6 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import { type Guide, written } from "../content/guides";
+import { GUIDES, type Guide, written } from "../content/guides";
 import { PRODUCTS, words } from "../content/products";
 import { DOMAIN, canonical, href, type Locale } from "../site";
 
@@ -19,14 +19,19 @@ const say = {
   guides: es ? "Guías" : "Guides",
   faq: es ? "Preguntas" : "Questions",
   more: es ? "Más sobre" : "More about",
+  kin: es ? "Sigue por aquí" : "Carry on with",
 };
 
 const paths = { en: guide.en.slug, es: guide.es.slug };
+
+const kin = GUIDES.filter((one) => one.id !== guide.id && one.product === guide.product);
 
 const schema = [
   {
     "@context": "https://schema.org",
     "@type": "HowTo",
+    datePublished: guide.published,
+    dateModified: guide.published,
     name: t.nativeTitle,
     description: t.description,
     step: t.nativeSteps.map((one, at) => ({
@@ -119,6 +124,26 @@ const schema = [
         <span class="mt-1 block text-sm text-gray-500">{words(product, locale).tagline}</span>
       </a>
     </section>
+
+    {
+      kin.length > 0 && (
+        <section class="mt-14">
+          <h2 class="text-2xl font-semibold">{say.kin}</h2>
+          <ul class="mt-5 space-y-3">
+            {kin.map((one) => (
+              <li>
+                <a
+                  class="block rounded-lg border border-gray-800 p-4 transition hover:border-gray-700 hover:bg-gray-900"
+                  href={href(locale, written(one, locale).slug)}
+                >
+                  <span class="font-medium text-gray-100">{written(one, locale).title}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
 
     <section class="mt-14">
       <h2 class="text-2xl font-semibold">{say.faq}</h2>

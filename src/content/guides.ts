@@ -9,6 +9,7 @@ const LINKUNBOUND_GUIDES: Guide[] = [
   {
     id: "teams-links",
     product: "linkunbound",
+    published: "2026-09-24",
     en: {
       slug: "guides/open-teams-links-in-another-browser",
       title: "Open Teams links in a different browser (Windows and macOS)",
@@ -111,6 +112,7 @@ const LINKUNBOUND_GUIDES: Guide[] = [
   {
     id: "outlook-links",
     product: "linkunbound",
+    published: "2026-09-24",
     en: {
       slug: "guides/open-outlook-links-in-chrome-or-firefox",
       title: "Open Outlook links in Chrome or Firefox instead of Edge",
@@ -203,6 +205,7 @@ const LINKUNBOUND_GUIDES: Guide[] = [
   {
     id: "chrome-profile",
     product: "linkunbound",
+    published: "2026-09-24",
     en: {
       slug: "guides/send-work-links-to-a-chrome-profile",
       title: "Send work links to a specific Chrome profile",
@@ -287,6 +290,7 @@ const LINKUNBOUND_GUIDES: Guide[] = [
   {
     id: "browserosaurus",
     product: "linkunbound",
+    published: "2026-09-24",
     en: {
       slug: "guides/browserosaurus-alternative",
       title: "A Browserosaurus alternative that is still maintained",

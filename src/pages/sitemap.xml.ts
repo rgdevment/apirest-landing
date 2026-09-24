@@ -3,13 +3,20 @@ import { GUIDES } from "../content/guides";
 import { PRODUCTS } from "../content/products";
 import { LOCALES, canonical } from "../site";
 
-type Entry = { en: string; es: string; priority: string };
+type Entry = { en: string; es: string; priority: string; lastmod?: string };
+
+const NEWEST = GUIDES.map((g) => g.published).sort().at(-1);
 
 const ENTRIES: Entry[] = [
-  { en: "", es: "", priority: "1.0" },
-  ...PRODUCTS.map((p) => ({ en: p.slug, es: p.slug, priority: "0.9" })),
-  { en: "guides", es: "guias", priority: "0.7" },
-  ...GUIDES.map((g) => ({ en: g.en.slug, es: g.es.slug, priority: "0.8" })),
+  { en: "", es: "", priority: "1.0", lastmod: NEWEST },
+  ...PRODUCTS.map((p) => ({ en: p.slug, es: p.slug, priority: "0.9", lastmod: NEWEST })),
+  { en: "guides", es: "guias", priority: "0.7", lastmod: NEWEST },
+  ...GUIDES.map((g) => ({
+    en: g.en.slug,
+    es: g.es.slug,
+    priority: "0.8",
+    lastmod: g.published,
+  })),
 ];
 
 const BREAK = "\n";
@@ -24,15 +31,15 @@ export const GET: APIRoute = () => {
         (other) =>
           `    <xhtml:link rel="alternate" hreflang="${other}" href="${canonical(other, entry[other])}"/>`,
       ).join(BREAK);
-      return [
+      const rows = [
         "  <url>",
         `    <loc>${canonical(locale, entry[locale])}</loc>`,
         alternates,
         `    <xhtml:link rel="alternate" hreflang="x-default" href="${canonical("en", entry.en)}"/>`,
-        "    <changefreq>monthly</changefreq>",
-        `    <priority>${entry.priority}</priority>`,
-        "  </url>",
-      ].join(BREAK);
+      ];
+      if (entry.lastmod) rows.push(`    <lastmod>${entry.lastmod}</lastmod>`);
+      rows.push(`    <priority>${entry.priority}</priority>`, "  </url>");
+      return rows.join(BREAK);
     }),
   ).join(BREAK);
 
