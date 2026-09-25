@@ -1,4 +1,5 @@
 ---
+import Mark from "./Mark.astro";
 import { PRODUCTS } from "../content/products";
 import { href, type Locale } from "../site";
 
@@ -11,56 +12,109 @@ interface Props {
 const { locale, here, other } = Astro.props;
 const there: Locale = locale === "es" ? "en" : "es";
 const es = locale === "es";
-const guides = es ? "guias" : "guides";
+
+const links: [string, string, string][] = [
+  ...PRODUCTS.map((p) => [p.slug, p.name, p.slug] as [string, string, string]),
+  ...((es
+    ? [
+        ["guias", "Guías", "guides"],
+        ["precios", "Precios", "pricing"],
+        ["apoyar", "Apoyar", "support"],
+      ]
+    : [
+        ["guides", "Guides", "guides"],
+        ["pricing", "Pricing", "pricing"],
+        ["support", "Support", "support"],
+      ]) as [string, string, string][]),
+];
+
+const on = "text-stone-900 font-medium";
+const off = "text-stone-500 transition-colors hover:text-stone-900";
 ---
 
-<header class="border-b border-gray-900">
+<header class="sticky top-0 z-40 border-b border-stone-200/70 bg-stone-50/85 backdrop-blur-md">
   <nav
     aria-label={es ? "Principal" : "Main"}
-    class="mx-auto flex max-w-3xl flex-wrap items-center gap-x-5 gap-y-2 px-6 py-4 text-sm"
+    class="mx-auto max-w-5xl px-6 sm:px-8"
   >
-    <a class="font-semibold text-gray-100 hover:text-white" href={href(locale)}>rgdevment</a>
-    {
-      PRODUCTS.map((product) => (
-        <a
-          class={
-            here === product.slug
-              ? "text-gray-100"
-              : "text-gray-500 transition hover:text-gray-300"
-          }
-          aria-current={here === product.slug ? "page" : undefined}
-          href={href(locale, product.slug)}
-        >
-          {product.name}
-        </a>
-      ))
-    }
-    <a
-      class={here === "guides" ? "text-gray-100" : "text-gray-500 transition hover:text-gray-300"}
-      aria-current={here === "guides" ? "page" : undefined}
-      href={href(locale, guides)}
-    >
-      {es ? "Guías" : "Guides"}
-    </a>
-
-    <a
-      class="ml-auto inline-flex items-center gap-2 rounded-md border border-gray-700 bg-gray-900 px-3 py-1.5 font-medium text-gray-200 transition hover:border-gray-500 hover:bg-gray-800 hover:text-white"
-      href={href(there, other)}
-      lang={there}
-      hreflang={there}
-    >
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="1.8"
-        class="h-4 w-4"
-        aria-hidden="true"
+    <!-- A details element gives a menu that folds on a narrow screen without a line of JavaScript. -->
+    <details class="group [&[open]_.shut]:hidden [&:not([open])_.open]:hidden">
+      <summary
+        class="flex cursor-pointer list-none items-center gap-3 py-4 lg:cursor-default [&::-webkit-details-marker]:hidden"
       >
-        <circle cx="12" cy="12" r="9" />
-        <path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18" />
-      </svg>
-      {es ? "English" : "Español"}
-    </a>
+        <a class="flex items-center gap-2.5" href={href(locale)}>
+          <Mark class="h-8 w-8 rounded-[9px]" />
+          <span class="text-lg font-semibold tracking-tight text-stone-900">rgdevment</span>
+        </a>
+
+        <span class="ml-auto flex items-center gap-4 lg:hidden">
+          <span class="text-stone-400" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="shut h-6 w-6">
+              <path d="M4 7h16M4 12h16M4 17h16" />
+            </svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="open h-6 w-6">
+              <path d="M6 6l12 12M18 6L6 18" />
+            </svg>
+          </span>
+        </span>
+
+        <ul class="ml-auto hidden items-center gap-7 lg:flex">
+          {
+            links.map(([slug, label, key], at) => (
+              <>
+                {at === PRODUCTS.length && (
+                  <li aria-hidden="true"><span class="block h-4 w-px bg-stone-300" /></li>
+                )}
+                <li>
+                  <a
+                    class={here === key ? on : off}
+                    aria-current={here === key ? "page" : undefined}
+                    href={href(locale, slug)}
+                  >
+                    {label}
+                  </a>
+                </li>
+              </>
+            ))
+          }
+          <li>
+            <a
+              class="rounded-full border border-stone-300 px-3 py-1 text-sm text-stone-600 transition-colors hover:border-stone-400 hover:bg-white hover:text-stone-900"
+              href={href(there, other)}
+              lang={there}
+              hreflang={there}
+            >
+              {es ? "EN" : "ES"}
+            </a>
+          </li>
+        </ul>
+      </summary>
+
+      <ul class="grid gap-1 pb-5 text-lg lg:hidden">
+        {
+          links.map(([slug, label, key]) => (
+            <li>
+              <a
+                class={`block rounded-lg px-3 py-2 ${here === key ? "bg-white font-medium text-stone-900" : "text-stone-600"}`}
+                aria-current={here === key ? "page" : undefined}
+                href={href(locale, slug)}
+              >
+                {label}
+              </a>
+            </li>
+          ))
+        }
+        <li class="mt-2 border-t border-stone-200 pt-3">
+          <a
+            class="block rounded-lg px-3 py-2 text-stone-600"
+            href={href(there, other)}
+            lang={there}
+            hreflang={there}
+          >
+            {es ? "English" : "Español"}
+          </a>
+        </li>
+      </ul>
+    </details>
   </nav>
 </header>

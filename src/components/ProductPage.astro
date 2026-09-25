@@ -1,4 +1,5 @@
 ---
+import Icon from "./Icon.astro";
 import Layout from "../layouts/Layout.astro";
 import { GUIDES, written } from "../content/guides";
 import { type Product, storeUrl, words } from "../content/products";
@@ -28,6 +29,10 @@ const say = {
   free: es ? "Gratis y de código abierto" : "Free and open source",
   direct: es ? "Descarga directa" : "Direct download",
   ways: es ? "Todas las formas de instalarlo" : "Every way to install it",
+  copy: es ? "Copiar" : "Copy",
+  getWin: es ? "Descargar para Windows" : "Download for Windows",
+  getMac: es ? "Descargar para macOS" : "Download for macOS",
+  other: es ? "¿Otro equipo?" : "On another machine?",
 };
 
 const schema = [
@@ -80,44 +85,68 @@ const schema = [
   path={path}
   schema={schema}
 >
-  <nav class="mb-10 text-sm text-gray-500">
-    <a class="hover:text-gray-300" href={href(locale)}>{say.home}</a>
+  <nav class="mb-10 text-sm text-stone-500">
+    <a class="hover:text-stone-900" href={href(locale)}>{say.home}</a>
     <span class="px-2">/</span>
-    <span class="text-gray-300">{product.name}</span>
+    <span class="text-stone-700">{product.name}</span>
   </nav>
 
   <header>
     <h1 class="text-4xl font-bold tracking-tight sm:text-5xl">{product.name}</h1>
-    <p class="mt-3 text-xl text-gray-300">{t.tagline}</p>
-    <p class="mt-6 text-lg leading-relaxed text-gray-400">{t.problem}</p>
-    <p class="mt-6 flex flex-wrap gap-2 text-sm">
+    <p class="mt-3 text-xl text-stone-700">{t.tagline}</p>
+    <p class="mt-6 text-lg leading-relaxed text-stone-600">{t.problem}</p>
+    <ul class="mt-6 flex flex-wrap gap-2">
       {
         product.platforms.map((one) => (
-          <span class="rounded-md border border-gray-700 px-3 py-1 text-gray-400">{one}</span>
-        ))
-      }
-      <span class="rounded-md border border-gray-700 px-3 py-1 text-gray-400">
-        {product.licence}
-      </span>
-      <span class="rounded-md border border-gray-700 px-3 py-1 text-gray-400">{say.free}</span>
-    </p>
-
-    <p class="mt-8 flex flex-wrap items-center gap-3">
-      {
-        product.platforms.map((one) => (
-          <a
-            class="rounded-lg border border-gray-700 px-5 py-3 font-medium transition hover:border-gray-500 hover:bg-gray-900"
-            href={one === "Windows" && store ? store : "#install"}
-            rel={one === "Windows" && store ? "noopener" : undefined}
-          >
+          <li class="inline-flex items-center gap-1.5 rounded-lg bg-stone-100 px-2.5 py-1.5 text-sm text-stone-600">
+            <Icon name={one === "Windows" ? "windows" : "apple"} class="h-3.5 w-3.5" />
             {one}
-          </a>
+          </li>
         ))
       }
-      <a class="text-sm text-gray-500 underline transition hover:text-gray-300" href="#install">
-        {say.ways}
-      </a>
-    </p>
+      <li class="inline-flex items-center gap-1.5 rounded-lg bg-stone-100 px-2.5 py-1.5 text-sm text-stone-600">
+        <Icon name="licence" class="h-3.5 w-3.5" />
+        {product.licence}
+      </li>
+      <li class="inline-flex items-center gap-1.5 rounded-lg bg-emerald-50 px-2.5 py-1.5 text-sm font-medium text-emerald-700">
+        <Icon name="free" class="h-3.5 w-3.5" />
+        {say.free}
+      </li>
+    </ul>
+
+    <!-- Both links ship in the HTML; the script only decides which one is dressed as the main one,
+         so a reader without scripts, and any crawler, still sees every platform. -->
+    <div id="download" class="group mt-9">
+      <p class="flex flex-wrap items-center gap-3">
+        {
+          store && (
+            <a
+              class="inline-flex items-center gap-2.5 rounded-xl border border-stone-300 px-6 py-3.5 font-medium transition hover:border-stone-400 hover:bg-white group-data-[os=win]:border-transparent group-data-[os=win]:bg-stone-900 group-data-[os=win]:text-white group-data-[os=win]:hover:bg-stone-700 group-data-[os=mac]:border-stone-200 group-data-[os=mac]:px-4 group-data-[os=mac]:py-2 group-data-[os=mac]:text-sm group-data-[os=mac]:text-stone-600"
+              href={store}
+              rel="noopener"
+            >
+              <Icon name="windows" class="h-4 w-4" />
+              {say.getWin}
+            </a>
+          )
+        }
+        {
+          product.cask && (
+            <a
+              class="inline-flex items-center gap-2.5 rounded-xl border border-stone-300 px-6 py-3.5 font-medium transition hover:border-stone-400 hover:bg-white group-data-[os=mac]:border-transparent group-data-[os=mac]:bg-stone-900 group-data-[os=mac]:text-white group-data-[os=mac]:hover:bg-stone-700 group-data-[os=win]:border-stone-200 group-data-[os=win]:px-4 group-data-[os=win]:py-2 group-data-[os=win]:text-sm group-data-[os=win]:text-stone-600"
+              href="#install"
+            >
+              <Icon name="apple" class="h-4 w-4" />
+              {say.getMac}
+            </a>
+          )
+        }
+      </p>
+      <p class="mt-3 text-sm text-stone-500">
+        <a class="underline transition hover:text-stone-900" href="#install">{say.ways}</a>
+      </p>
+    </div>
+
   </header>
 
   {
@@ -130,7 +159,7 @@ const schema = [
           alt={es ? product.shot.es : product.shot.en}
           loading="lazy"
           decoding="async"
-          class="w-full rounded-xl border border-gray-800"
+          class="w-full rounded-xl border border-stone-200"
         />
       </p>
     )
@@ -141,7 +170,7 @@ const schema = [
     <ul class="mt-5 space-y-4">
       {
         t.what.map((one) => (
-          <li class="border-l-2 pl-4 text-gray-300" style={`border-color: ${product.accent}`}>
+          <li class="border-l-2 pl-4 text-stone-700" style={`border-color: ${product.accent}`}>
             {one}
           </li>
         ))
@@ -149,86 +178,135 @@ const schema = [
     </ul>
   </section>
 
-  <section id="install" class="mt-14 scroll-mt-6">
-    <h2 class="text-2xl font-semibold">{say.install}</h2>
-    <dl class="mt-5 space-y-5">
+  <section id="install" class="mt-16 scroll-mt-24 sm:mt-24">
+    <h2 class="text-2xl font-semibold tracking-tight sm:text-3xl">{say.install}</h2>
+
+    <div class="mt-7 grid gap-4 sm:grid-cols-2">
       {
         store && (
-          <div>
-            <dt class="font-medium text-gray-200">Windows</dt>
-            <dd class="mt-1 text-gray-400">
-              <a class="underline hover:text-gray-200" href={store} rel="noopener">
-                Microsoft Store
-              </a>
-            </dd>
-          </div>
+          <a
+            class="group flex items-start gap-4 rounded-2xl border border-stone-200 bg-white p-5 transition hover:border-stone-300 hover:shadow-sm"
+            href={store}
+            rel="noopener"
+          >
+            <span class="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-stone-100 text-stone-700">
+              <Icon name="windows" class="h-5 w-5" />
+            </span>
+            <span class="min-w-0">
+              <span class="block font-semibold text-stone-900">Microsoft Store</span>
+              <span class="mt-0.5 block text-sm text-stone-500">Windows</span>
+            </span>
+            <Icon name="arrow" class="ml-auto mt-1 h-4 w-4 shrink-0 text-stone-400 transition group-hover:translate-x-0.5" />
+          </a>
         )
       }
-      {
-        product.winget && (
-          <div>
-            <dt class="font-medium text-gray-200">winget</dt>
-            <dd class="mt-1">
-              <code class="rounded bg-gray-900 px-2 py-1 text-gray-300">
-                winget install {product.winget}
-              </code>
-            </dd>
-          </div>
-        )
-      }
-      {
-        product.scoop && (
-          <div>
-            <dt class="font-medium text-gray-200">Scoop</dt>
-            <dd class="mt-1">
-              <code class="rounded bg-gray-900 px-2 py-1 text-gray-300">
-                scoop bucket add rgdevment https://github.com/rgdevment/scoop-bucket && scoop
-                install {product.scoop}
-              </code>
-            </dd>
-          </div>
-        )
-      }
+
       {
         product.cask && (
-          <div>
-            <dt class="font-medium text-gray-200">macOS</dt>
-            <dd class="mt-1">
-              <code class="rounded bg-gray-900 px-2 py-1 text-gray-300">
-                brew tap rgdevment/tap && brew install --cask {product.cask}
+          <div class="rounded-2xl border border-stone-200 bg-white p-5">
+            <div class="flex items-center gap-4">
+              <span class="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-stone-100 text-stone-700">
+                <Icon name="apple" class="h-5 w-5" />
+              </span>
+              <span>
+                <span class="block font-semibold text-stone-900">Homebrew</span>
+                <span class="mt-0.5 block text-sm text-stone-500">macOS</span>
+              </span>
+            </div>
+            <div class="mt-4 flex items-start gap-2 rounded-xl bg-stone-900 py-3 pr-2 pl-3.5">
+              <code class="flex-1 overflow-x-auto font-mono text-[13px] text-stone-100">
+                <span class="block whitespace-nowrap">
+                  <span class="text-stone-500 select-none">$ </span>brew tap rgdevment/tap
+                </span>
+                <span class="mt-1 block whitespace-nowrap">
+                  <span class="text-stone-500 select-none">$ </span>brew install --cask{" "}
+                  {product.cask}
+                </span>
               </code>
-            </dd>
+              <button
+                type="button"
+                class="copy shrink-0 rounded-lg p-1.5 text-stone-400 transition hover:bg-stone-800 hover:text-white"
+                data-copy={`brew tap rgdevment/tap
+brew install --cask ${product.cask}`}
+                aria-label={say.copy}
+              >
+                <Icon name="copy" class="h-4 w-4" />
+              </button>
+            </div>
           </div>
         )
       }
-      <div>
-        <dt class="font-medium text-gray-200">{say.direct}</dt>
-        <dd class="mt-1 text-gray-400">
-          <a class="underline hover:text-gray-200" href={`${product.repo}/releases`} rel="noopener">
-            GitHub Releases
-          </a>
-        </dd>
-      </div>
-    </dl>
+
+      {
+        product.winget && (
+          <div class="rounded-2xl border border-stone-200 bg-white p-5">
+            <div class="flex items-center gap-4">
+              <span class="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-stone-100 text-stone-700">
+                <Icon name="windows" class="h-5 w-5" />
+              </span>
+              <span>
+                <span class="block font-semibold text-stone-900">winget</span>
+                <span class="mt-0.5 block text-sm text-stone-500">Windows</span>
+              </span>
+            </div>
+            <div class="mt-4 flex items-center gap-2 rounded-xl bg-stone-900 py-2.5 pr-2 pl-3.5">
+              <code class="flex-1 overflow-x-auto font-mono text-[13px] whitespace-nowrap text-stone-100">
+                <span class="text-stone-500 select-none">$ </span>winget install {product.winget}
+              </code>
+              <button
+                type="button"
+                class="copy shrink-0 rounded-lg p-1.5 text-stone-400 transition hover:bg-stone-800 hover:text-white"
+                data-copy={`winget install ${product.winget}`}
+                aria-label={say.copy}
+              >
+                <Icon name="copy" class="h-4 w-4" />
+              </button>
+            </div>
+          </div>
+        )
+      }
+
+      <a
+        class="group flex items-start gap-4 rounded-2xl border border-stone-200 bg-white p-5 transition hover:border-stone-300 hover:shadow-sm"
+        href={`${product.repo}/releases`}
+        rel="noopener"
+      >
+        <span class="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-stone-100 text-stone-700">
+          <Icon name="download" class="h-5 w-5" />
+        </span>
+        <span class="min-w-0">
+          <span class="block font-semibold text-stone-900">GitHub Releases</span>
+          <span class="mt-0.5 block text-sm text-stone-500">{say.direct}</span>
+        </span>
+        <Icon name="arrow" class="ml-auto mt-1 h-4 w-4 shrink-0 text-stone-400 transition group-hover:translate-x-0.5" />
+      </a>
+    </div>
   </section>
 
-  <section class="mt-14">
-    <h2 class="text-2xl font-semibold">{say.privacy}</h2>
-    <p class="mt-4 text-gray-300">{t.privacy}</p>
+  <section class="mt-16 sm:mt-24">
+    <div class="rounded-2xl border border-emerald-200/70 bg-emerald-50/60 p-7">
+      <h2 class="flex items-center gap-2.5 text-xl font-semibold text-stone-900">
+        <span class="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-white text-emerald-700">
+          <Icon name="shield" class="h-[18px] w-[18px]" />
+        </span>
+        {say.privacy}
+      </h2>
+      <p class="mt-4 leading-relaxed text-stone-700">{t.privacy}</p>
+    </div>
   </section>
 
-  <section class="mt-14">
-    <h2 class="text-2xl font-semibold">{say.faq}</h2>
-    <div class="mt-5 space-y-6">
+  <section class="mt-16 sm:mt-24">
+    <h2 class="text-2xl font-semibold tracking-tight sm:text-3xl">{say.faq}</h2>
+    <dl class="mt-7 divide-y divide-stone-200 border-t border-stone-200">
       {
         t.faq.map((one) => (
-          <div>
-            <h3 class="font-medium text-gray-100">{one.q}</h3>
-            <p class="mt-2 leading-relaxed text-gray-400">{one.a}</p>
+          <div class="py-6">
+            <dt class="text-lg font-semibold text-stone-900">{one.q}</dt>
+            <dd class="mt-2.5 leading-relaxed text-stone-600">{one.a}</dd>
           </div>
         ))
       }
-    </div>
+    </dl>
   </section>
 
   {
@@ -239,11 +317,11 @@ const schema = [
           {guides.map((one) => (
             <li>
               <a
-                class="block rounded-lg border border-gray-800 p-4 transition hover:border-gray-700 hover:bg-gray-900"
+                class="block rounded-lg border border-stone-200 p-4 transition hover:border-stone-400 hover:bg-stone-100"
                 href={href(locale, written(one, locale).slug)}
               >
-                <span class="font-medium text-gray-100">{written(one, locale).title}</span>
-                <span class="mt-1 block text-sm text-gray-500">
+                <span class="font-medium text-stone-900">{written(one, locale).title}</span>
+                <span class="mt-1 block text-sm text-stone-500">
                   {written(one, locale).description}
                 </span>
               </a>
@@ -254,9 +332,25 @@ const schema = [
     )
   }
 
-  <section class="mt-14 border-t border-gray-800 pt-8">
-    <a class="text-gray-400 underline hover:text-gray-200" href={product.repo} rel="noopener">
+  <section class="mt-14 border-t border-stone-200 pt-8">
+    <a class="text-stone-600 underline hover:text-stone-900" href={product.repo} rel="noopener">
       {say.source}
     </a>
   </section>
+  <script is:inline>
+    (() => {
+      const box = document.getElementById("download");
+      if (!box) return;
+      const said = navigator.userAgentData?.platform || navigator.userAgent || "";
+      const os = /mac|iphone|ipad/i.test(said) ? "mac" : /win/i.test(said) ? "win" : "";
+      if (os) box.dataset.os = os;
+    })();
+    document.querySelectorAll(".copy").forEach((one) => {
+      one.addEventListener("click", () => {
+        navigator.clipboard?.writeText(one.dataset.copy || "");
+        one.classList.add("text-emerald-400");
+        setTimeout(() => one.classList.remove("text-emerald-400"), 1200);
+      });
+    });
+  </script>
 </Layout>

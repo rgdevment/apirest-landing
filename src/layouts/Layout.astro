@@ -1,6 +1,5 @@
 ---
 import Nav from "../components/Nav.astro";
-import OtherLanguage from "../components/OtherLanguage.astro";
 import { DOMAIN, LOCALES, canonical, href, type Locale } from "../site";
 
 interface Props {
@@ -68,7 +67,7 @@ const graphs = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
     }
   </head>
   <body
-    class="bg-gray-950 text-gray-100 font-sans antialiased selection:bg-violet-500 selection:text-white"
+    class="bg-stone-50 text-[17px] leading-relaxed text-stone-800 font-sans antialiased selection:bg-stone-900 selection:text-white sm:text-lg"
   >
     <a
       href="#content"
@@ -77,15 +76,13 @@ const graphs = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
       {locale === "es" ? "Ir al contenido" : "Skip to content"}
     </a>
 
-    <OtherLanguage locale={locale} other={at(locale === "es" ? "en" : "es")} />
-
     <Nav locale={locale} here={here} other={at(locale === "es" ? "en" : "es")} />
 
-    <main id="content" class="mx-auto max-w-3xl px-6 py-14">
+    <main id="content" class="mx-auto max-w-5xl px-6 py-16 sm:px-8 sm:py-24">
       <slot />
     </main>
 
-    <footer class="mx-auto max-w-3xl px-6 pb-14 text-sm text-gray-500">
+    <footer class="mx-auto max-w-5xl px-6 pb-16 text-stone-500 sm:px-8">
       <p>
         {
           locale === "es"

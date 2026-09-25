@@ -1,4 +1,5 @@
 ---
+import Icon from "./Icon.astro";
 import Layout from "../layouts/Layout.astro";
 import { PRODUCTS, words } from "../content/products";
 import { DOMAIN, canonical, href, type Locale } from "../site";
@@ -14,38 +15,86 @@ const say = es
   ? {
       title: "Herramientas de escritorio que son tuyas",
       description:
-        "Tres programas gratuitos y de código abierto para Windows y macOS: un selector de navegador, un gestor de portapapeles y unas notas locales. Sin cuenta, sin telemetría y sin suscripción.",
-      motto: "Software por convicción, no por suscripción.",
-      lede: "Tres programas para Windows y macOS que hacen una cosa y se apartan. Guardan lo suyo en tu disco, no piden cuenta y no mandan nada a ninguna parte. Son gratis, y lo seguirán siendo.",
+        "Programas gratuitos y de código abierto para Windows y macOS: un historial de cómo resolviste las cosas, un selector de navegador y un gestor de portapapeles. Sin cuenta, sin telemetría y sin suscripción.",
+      motto: "Software por convicción,",
+      motto2: "no por suscripción.",
+      lede: "Programas que se adaptan, no que se apartan. Tus datos en tu disco o en tu nube, tú eliges. Sin telemetría, sin cuentas, sin suscripciones. Gratis y de código abierto.",
+      marks: ["Windows y macOS", "Código abierto", "Sin telemetría", "Gratis, de verdad"],
       tools: "Las herramientas",
-      why: "Por qué existen",
-      whyText: [
-        "Cada uno nació de un fastidio propio: enlaces que se abrían donde no tocaba, algo copiado que ya no estaba, notas encerradas en la aplicación de otro.",
-        "No hay versión de pago ni funciones guardadas detrás de un muro, porque no se mantienen con el dinero de nadie. El código está publicado entero, con su licencia, para que cualquiera lo lea, lo cambie o siga por su cuenta si esto se acaba.",
-        "Tampoco hay telemetría. No se sabe cuánta gente los usa, y esa es exactamente la idea.",
-      ],
+      toolsLede: "Cada una nació de un fastidio propio.",
       see: "Ver",
-      guides: "Guías",
+      whyTitle: "Cómo están hechas",
+      why: [
+        [
+          "disk",
+          "Tus datos, donde tú digas",
+          "Lo que guardan son archivos tuyos, en tu equipo. Si quieres sincronizarlos, pones esa carpeta donde tú decidas: nadie lo hace por ti.",
+        ],
+        [
+          "shield",
+          "Nada que recoger",
+          "Sin telemetría, sin analítica, sin identificadores. No sé cuánta gente las usa, y esa es la idea.",
+        ],
+        [
+          "code",
+          "Abiertas de par en par",
+          "El código está publicado entero, con su licencia. Puedes leer qué hace antes de fiarte de esta página.",
+        ],
+        [
+          "free",
+          "Gratis sin condiciones",
+          "No hay versión de pago ni funciones esperando detrás de un muro. No hay empresa que alimentar.",
+        ],
+      ],
+      guidesTitle: "Guías",
       guidesLede:
         "Cómo abrir los enlaces de Teams o de Outlook donde tú quieras, y qué hacer cuando el ajuste de la aplicación no basta.",
+      guidesGo: "Ver las guías",
+      priceTitle: "¿Cuánto cuesta?",
+      priceLede: "Nada, y esa suele ser la parte difícil de creer.",
+      priceGo: "Ver precios",
     }
   : {
       title: "Desktop tools that are yours",
       description:
-        "Three free and open source programs for Windows and macOS: a browser picker, a clipboard manager and local-first notes. No account, no telemetry, no subscription.",
-      motto: "Software out of conviction, not subscription.",
-      lede: "Three programs for Windows and macOS that do one thing and get out of the way. They keep what is theirs on your disk, ask for no account, and send nothing anywhere. They are free, and they will stay that way.",
+        "Free, open source programs for Windows and macOS: a record of how you worked things out, a browser picker and a clipboard manager. No account, no telemetry, no subscription.",
+      motto: "Software out of conviction,",
+      motto2: "not subscription.",
+      lede: "Programs that fit how you work instead of getting in your way. Your data on your disk or in your cloud, your call. No telemetry, no accounts, no subscriptions. Free and open source.",
+      marks: ["Windows and macOS", "Open source", "No telemetry", "Free, really"],
       tools: "The tools",
-      why: "Why they exist",
-      whyText: [
-        "Each one came from an annoyance of my own: links opening where they should not, something copied that was no longer there, notes locked inside somebody else's application.",
-        "There is no paid tier and nothing kept behind a wall, because nobody's money keeps them running. The source is published in full, with its licence, so anyone can read it, change it, or carry on alone if this ever stops.",
-        "There is no telemetry either. I do not know how many people use them, and that is exactly the point.",
-      ],
+      toolsLede: "Each one came from an annoyance of my own.",
       see: "See",
-      guides: "Guides",
+      whyTitle: "How they are built",
+      why: [
+        [
+          "disk",
+          "Your data, where you say",
+          "What they keep are your files, on your machine. Want them synced? You put that folder wherever you choose: nobody does it for you.",
+        ],
+        [
+          "shield",
+          "Nothing to collect",
+          "No telemetry, no analytics, no identifiers. I do not know how many people use them, and that is the point.",
+        ],
+        [
+          "code",
+          "Open all the way",
+          "The source is published in full, with its licence. You can read what it does before taking this page at its word.",
+        ],
+        [
+          "free",
+          "Free with no strings",
+          "No paid tier, no features waiting behind a wall. There is no company to feed.",
+        ],
+      ],
+      guidesTitle: "Guides",
       guidesLede:
         "How to open Teams or Outlook links where you meant them to go, and what to do when the application's own setting is not enough.",
+      guidesGo: "See the guides",
+      priceTitle: "What does it cost?",
+      priceLede: "Nothing, and that is usually the hard part to believe.",
+      priceGo: "See pricing",
     };
 
 const schema = {
@@ -66,56 +115,107 @@ const schema = {
   })),
   publisher: { "@type": "Person", name: "Mario Hidalgo G.", url: `${DOMAIN}${href(locale)}` },
 };
+
+const marks = ["windows", "code", "shield", "free"] as const;
 ---
 
 <Layout title={say.title} description={say.description} locale={locale} schema={schema}>
-  <header>
-    <h1 class="text-4xl font-bold tracking-tight sm:text-5xl">{say.title}</h1>
-    <p class="mt-4 text-xl text-gray-300">{say.motto}</p>
-    <p class="mt-6 text-lg leading-relaxed text-gray-400">{say.lede}</p>
-  </header>
+  <section class="pt-2 pb-4 text-center sm:pt-8">
+    <h1 class="text-4xl font-bold tracking-tight text-stone-900 sm:text-6xl">
+      <span class="block">{say.motto}</span>
+      <span class="block text-stone-400">{say.motto2}</span>
+    </h1>
+    <p class="mx-auto mt-7 max-w-2xl text-lg text-stone-600 sm:text-xl">{say.lede}</p>
 
-  <section class="mt-16">
-    <h2 class="text-2xl font-semibold">{say.tools}</h2>
-    <div class="mt-6 space-y-4">
+    <ul class="mt-8 flex flex-wrap justify-center gap-2">
+      {
+        say.marks.map((one, at) => (
+          <li
+            class={`inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm ${at === 3 ? "bg-emerald-50 font-medium text-emerald-700" : "bg-stone-100 text-stone-600"}`}
+          >
+            <Icon name={marks[at]} class="h-3.5 w-3.5" />
+            {one}
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="mt-16 sm:mt-24">
+    <div class="flex flex-wrap items-baseline justify-between gap-2">
+      <h2 class="text-2xl font-semibold tracking-tight sm:text-3xl">{say.tools}</h2>
+      <p class="text-stone-500">{say.toolsLede}</p>
+    </div>
+
+    <div class="mt-7 grid gap-5 sm:grid-cols-3">
       {
         PRODUCTS.map((product) => (
           <a
-            class="block rounded-xl border border-gray-800 bg-gray-900/40 p-6 transition hover:border-gray-700 hover:bg-gray-900"
+            class="group flex flex-col rounded-2xl border border-stone-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:border-stone-300 hover:shadow-md"
             href={href(locale, product.slug)}
           >
-            <div class="flex items-baseline gap-3">
-              <span
-                class="inline-block h-3 w-3 shrink-0 rounded-full"
-                style={`background: ${product.accent}`}
-                aria-hidden="true"
-              />
-              <h3 class="text-xl font-semibold">{product.name}</h3>
-              <span class="text-sm text-gray-500">{product.platforms.join(" · ")}</span>
-            </div>
-            <p class="mt-2 text-gray-300">{words(product, locale).tagline}</p>
-            <p class="mt-3 text-sm leading-relaxed text-gray-500">
+            <span
+              class="h-1.5 w-10 rounded-full"
+              style={`background: ${product.accent}`}
+              aria-hidden="true"
+            />
+            <h3 class="mt-5 text-xl font-semibold text-stone-900">{product.name}</h3>
+            <p class="mt-2 leading-snug text-stone-700">{words(product, locale).tagline}</p>
+            <p class="mt-3 flex-1 text-sm leading-relaxed text-stone-500">
               {words(product, locale).problem}
             </p>
+            <span class="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-stone-900">
+              {say.see} {product.name}
+              <Icon name="arrow" class="h-4 w-4 transition group-hover:translate-x-0.5" />
+            </span>
           </a>
         ))
       }
     </div>
   </section>
 
-  <section class="mt-16">
-    <h2 class="text-2xl font-semibold">{say.guides}</h2>
-    <p class="mt-3 text-gray-400">{say.guidesLede}</p>
-    <a
-      class="mt-5 inline-block rounded-lg border border-gray-800 px-5 py-3 transition hover:border-gray-600 hover:bg-gray-900"
-      href={href(locale, es ? "guias" : "guides")}
-    >
-      {say.guides}
-    </a>
+  <section class="mt-16 sm:mt-24">
+    <h2 class="text-2xl font-semibold tracking-tight sm:text-3xl">{say.whyTitle}</h2>
+    <dl class="mt-7 grid gap-5 sm:grid-cols-2">
+      {
+        say.why.map(([icon, term, body]) => (
+          <div class="rounded-2xl border border-stone-200 bg-white p-6">
+            <dt class="flex items-center gap-2.5 font-semibold text-stone-900">
+              <span class="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-stone-100 text-stone-700">
+                <Icon name={icon as "disk"} class="h-[18px] w-[18px]" />
+              </span>
+              {term}
+            </dt>
+            <dd class="mt-3 leading-relaxed text-stone-600">{body}</dd>
+          </div>
+        ))
+      }
+    </dl>
   </section>
 
-  <section class="mt-16">
-    <h2 class="text-2xl font-semibold">{say.why}</h2>
-    {say.whyText.map((one) => <p class="mt-4 leading-relaxed text-gray-400">{one}</p>)}
+  <section class="mt-16 grid gap-5 sm:mt-24 sm:grid-cols-2">
+    <div class="rounded-2xl border border-stone-200 bg-white p-7">
+      <h2 class="text-xl font-semibold">{say.guidesTitle}</h2>
+      <p class="mt-3 leading-relaxed text-stone-600">{say.guidesLede}</p>
+      <a
+        class="mt-5 inline-flex items-center gap-1.5 font-medium text-stone-900 hover:underline"
+        href={href(locale, es ? "guias" : "guides")}
+      >
+        {say.guidesGo}
+        <Icon name="arrow" class="h-4 w-4" />
+      </a>
+    </div>
+
+    <div class="rounded-2xl bg-stone-900 p-7 text-white">
+      <h2 class="text-xl font-semibold">{say.priceTitle}</h2>
+      <p class="mt-3 leading-relaxed text-stone-300">{say.priceLede}</p>
+      <a
+        class="mt-5 inline-flex items-center gap-1.5 font-medium text-white hover:underline"
+        href={href(locale, es ? "precios" : "pricing")}
+      >
+        {say.priceGo}
+        <Icon name="arrow" class="h-4 w-4" />
+      </a>
+    </div>
   </section>
 </Layout>

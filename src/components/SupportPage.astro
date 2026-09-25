@@ -1,0 +1,153 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { PRODUCTS, storeUrl } from "../content/products";
+import { DOMAIN, canonical, href, type Locale } from "../site";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const es = locale === "es";
+const paths = { en: "support", es: "apoyar" };
+
+const SPONSOR = "https://github.com/sponsors/rgdevment";
+const COFFEE = "https://buymeacoffee.com/rgdevment";
+
+const say = es
+  ? {
+      title: "Cómo apoyar",
+      description:
+        "Formas de ayudar a que estas herramientas sigan existiendo. La mayoría no cuesta dinero, y son las que más sirven.",
+      lede: "Sin telemetría no sé cuánta gente usa esto, y sin publicidad nadie lo encuentra por su cuenta. Así que lo que más ayuda no es el dinero: es que alguien diga que existe.",
+      freeTitle: "Lo que más ayuda, y es gratis",
+      free: [
+        ["Una estrella en GitHub", "Es la señal que miran las listas, los agregadores y quien duda si un proyecto está vivo. Cuesta un clic."],
+        ["Una valoración en la Microsoft Store", "Decide si alguien que busca «browser picker» llega a encontrarlo. Diez valoraciones cambian por completo dónde aparece."],
+        ["Contarlo donde se pregunte", "La mayoría de quien llega aquí lo hace porque alguien lo mencionó en un hilo. Vale más que cualquier anuncio."],
+        ["Reportar lo que falla", "Un navegador que no detecta, una regla que no aplica, una palabra mal traducida. Se arregla lo que alguien cuenta."],
+      ],
+      moneyTitle: "Si prefieres poner dinero",
+      money: "No hace falta y no desbloquea nada: no hay versión de pago que comprar. Sirve para cubrir lo que esto cuesta de verdad — la cuenta de desarrollador de Apple, la de Microsoft, los dominios — y para que siga habiendo ratos dedicados a ello.",
+      sponsor: "Patrocinar en GitHub",
+      sponsorNote: "Mensual o puntual",
+      coffee: "Invitar a un café",
+      coffeeNote: "Pago único",
+      codeTitle: "Si escribes código",
+      code: "Todas son de código abierto y las aportaciones se revisan. Lo más útil no suele ser una función nueva: es una traducción, un navegador que nadie había probado, o un caso que rompe algo.",
+      repos: "Los repositorios",
+      home: "Inicio",
+    }
+  : {
+      title: "How to support",
+      description:
+        "Ways to help these tools keep existing. Most of them cost nothing, and those are the ones that help most.",
+      lede: "With no telemetry I do not know how many people use these, and with no advertising nobody finds them on their own. So what helps most is not money: it is somebody saying they exist.",
+      freeTitle: "What helps most, and is free",
+      free: [
+        ["A star on GitHub", "It is the signal that lists, aggregators and anyone wondering whether a project is alive all look at. One click."],
+        ["A rating on the Microsoft Store", "It decides whether somebody searching for a browser picker ever finds it. Ten ratings change where you appear entirely."],
+        ["Mentioning it where people ask", "Most people who land here do so because somebody named it in a thread. That beats any advertising."],
+        ["Reporting what breaks", "A browser it fails to detect, a rule that does not apply, a badly translated word. What gets told is what gets fixed."],
+      ],
+      moneyTitle: "If you would rather give money",
+      money: "You do not need to, and it unlocks nothing: there is no paid tier to buy. It covers what this actually costs — the Apple developer account, the Microsoft one, the domains — and keeps hours going into it.",
+      sponsor: "Sponsor on GitHub",
+      sponsorNote: "Monthly or one-off",
+      coffee: "Buy me a coffee",
+      coffeeNote: "One-off",
+      codeTitle: "If you write code",
+      code: "They are all open source and contributions get reviewed. The most useful thing is rarely a new feature: it is a translation, a browser nobody had tried, or a case that breaks something.",
+      repos: "The repositories",
+      home: "Home",
+    };
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: say.home, item: `${DOMAIN}${href(locale)}` },
+    { "@type": "ListItem", position: 2, name: say.title, item: canonical(locale, paths[locale]) },
+  ],
+};
+---
+
+<Layout
+  title={say.title}
+  description={say.description}
+  locale={locale}
+  path={paths[locale]}
+  paths={paths}
+  here="support"
+  schema={schema}
+>
+  <header>
+    <h1 class="text-4xl font-bold tracking-tight sm:text-5xl">{say.title}</h1>
+    <p class="mt-6 text-lg leading-relaxed text-stone-600">{say.lede}</p>
+  </header>
+
+  <section class="mt-14">
+    <h2 class="text-2xl font-semibold">{say.freeTitle}</h2>
+    <dl class="mt-6 space-y-5">
+      {
+        say.free.map(([term, body]) => (
+          <div>
+            <dt class="font-medium text-stone-900">{term}</dt>
+            <dd class="mt-1 leading-relaxed text-stone-600">{body}</dd>
+          </div>
+        ))
+      }
+    </dl>
+
+    <ul class="mt-8 space-y-3">
+      {
+        PRODUCTS.map((product) => {
+          const store = storeUrl(product);
+          return (
+            <li class="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm">
+              <span class="font-medium text-stone-900">{product.name}</span>
+              <a class="underline text-stone-600" href={product.repo} rel="noopener">
+                GitHub
+              </a>
+              {store && (
+                <a class="underline text-stone-600" href={store} rel="noopener">
+                  Microsoft Store
+                </a>
+              )}
+            </li>
+          );
+        })
+      }
+    </ul>
+  </section>
+
+  <section class="mt-14">
+    <h2 class="text-2xl font-semibold">{say.moneyTitle}</h2>
+    <p class="mt-4 leading-relaxed text-stone-600">{say.money}</p>
+    <p class="mt-6 flex flex-wrap gap-3">
+      <a
+        class="rounded-lg border border-stone-300 px-5 py-3 transition hover:border-stone-400 hover:bg-stone-100"
+        href={SPONSOR}
+        rel="noopener"
+      >
+        <span class="font-medium">{say.sponsor}</span>
+        <span class="mt-0.5 block text-sm text-stone-500">
+          {say.sponsorNote}
+        </span>
+      </a>
+      <a
+        class="rounded-lg border border-stone-300 px-5 py-3 transition hover:border-stone-400 hover:bg-stone-100"
+        href={COFFEE}
+        rel="noopener"
+      >
+        <span class="font-medium">{say.coffee}</span>
+        <span class="mt-0.5 block text-sm text-stone-500">{say.coffeeNote}</span>
+      </a>
+    </p>
+  </section>
+
+  <section class="mt-14">
+    <h2 class="text-2xl font-semibold">{say.codeTitle}</h2>
+    <p class="mt-4 leading-relaxed text-stone-600">{say.code}</p>
+  </section>
+</Layout>

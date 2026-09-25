@@ -1,0 +1,260 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { PRODUCTS, storeUrl, words } from "../content/products";
+import { DOMAIN, canonical, href, type Locale } from "../site";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const es = locale === "es";
+const paths = { en: "pricing", es: "precios" };
+
+const say = es
+  ? {
+      title: "Precios",
+      description:
+        "Todas las aplicaciones son gratuitas: sin versión de pago, sin prueba limitada y sin funciones guardadas detrás de un muro. Qué significa exactamente y por qué.",
+      hero: "Gratis, y sin letra pequeña.",
+      sub: ["Sin cuenta. Sin suscripción.", "Sin telemetría. Sin anuncios."],
+      forever: "para siempre",
+      included: [
+        "Todas las funciones",
+        "Sin límite de uso",
+        "Sin cuenta ni registro",
+        "Actualizaciones incluidas",
+      ],
+      get: "Ver",
+      catchTitle: "¿Dónde está el truco?",
+      catch: [
+        "No lo hay, y la respuesta honesta es que tampoco hay modelo de negocio. No hay empresa detrás, ni inversores esperando retorno, ni nómina que pagar. Son programas que necesitaba, y mantenerlos cuesta tiempo, no dinero.",
+        "Lo que sí pasa es que cuanta más gente los usa, más cuesta sostenerlos: una firma que caduca, un sistema que cambia de reglas, un fallo que aparece en un equipo que no es el mío. Si quieres ayudar a que sigan seguros, actualizados y gratis, más abajo está cómo.",
+        "Eso significa que tampoco te debo nada: no hay contrato ni soporte garantizado. Solo muy buena voluntad y el código entero publicado, con una licencia que deja a cualquiera continuarlo si esto se acaba. Y aunque se acabe, lo tuyo sigue siendo exportable, migrable y tuyo, a tu alcance. Es la única garantía que puedo dar, y dura más que una suscripción.",
+      ],
+      openTitle: "Por eso el código está abierto",
+      open: "No como argumento de venta. Es lo que hace comprobable todo lo anterior: cualquiera puede leer si hay telemetría, si algo sale del equipo o qué se guarda en disco, en lugar de fiarse de esta página.",
+      helpTitle: "Si quieres devolver algo",
+      help: "No hace falta. Si aun así te apetece, hay formas que no cuestan dinero y ayudan más.",
+      helpGo: "Cómo apoyar",
+      faqTitle: "Preguntas",
+      faq: [
+        {
+          q: "¿De verdad son gratis?",
+          a: "Sí, todas, completas, sin versión de pago ni funciones bloqueadas. Se instalan desde la Microsoft Store, con Homebrew, con winget o directamente desde GitHub, y ninguna pide una cuenta.",
+        },
+        {
+          q: "¿Van a ser de pago más adelante?",
+          a: "El código está publicado bajo GPL y AGPL. Aunque algún día quisiera cobrar por algo nuevo, lo que existe hoy sigue siendo libre y cualquiera puede continuarlo. Eso no se deshace.",
+        },
+        {
+          q: "¿Vendéis mis datos?",
+          a: "No hay datos que vender. No se recoge nada: ni telemetría, ni analítica, ni identificadores. Lo que cada aplicación guarda vive en tu disco y se queda ahí.",
+        },
+        {
+          q: "¿Qué pasa si dejas de mantenerlas?",
+          a: "Lo que tengas instalado sigue funcionando. El código y su historial son públicos, así que cualquiera puede continuarlo, y lo que guardan son archivos corrientes en tu equipo, legibles sin la aplicación.",
+        },
+      ],
+      home: "Inicio",
+    }
+  : {
+      title: "Pricing",
+      description:
+        "Every application here is free: no paid tier, no limited trial, and nothing kept behind a wall. What that means exactly, and why.",
+      hero: "Free, and no small print.",
+      sub: ["No account. No subscription.", "No telemetry. No ads."],
+      forever: "forever",
+      included: [
+        "Every feature",
+        "No usage limits",
+        "No account, no sign-up",
+        "Updates included",
+      ],
+      get: "See",
+      catchTitle: "Where is the catch?",
+      catch: [
+        "There isn't one, and the honest answer is that there is no business model either. No company behind this, no investors waiting for a return, no payroll. They are programs I needed, and keeping them going costs time, not money.",
+        "What does happen is that the more people use them, the harder they are to hold up: a certificate that expires, a system that changes its rules, a bug that only shows on a machine that is not mine. If you want to help keep them safe, current and free, further down is how.",
+        "Which also means I owe you nothing: no contract, no guaranteed support. Just plenty of goodwill and the whole source published, under a licence that lets anyone continue it if this ends. And even if it does end, what is yours stays exportable, portable and within your reach. It is the only guarantee I can give, and it outlasts a subscription.",
+      ],
+      openTitle: "That is why the source is open",
+      open: "Not as a selling point. It is what makes everything above checkable: anyone can read whether there is telemetry, whether anything leaves the machine, or what gets written to disk, instead of taking this page at its word.",
+      helpTitle: "If you want to give something back",
+      help: "You do not have to. If you feel like it anyway, there are ways that cost nothing and help more.",
+      helpGo: "How to support",
+      faqTitle: "Questions",
+      faq: [
+        {
+          q: "Are they really free?",
+          a: "Yes, every one of them, in full, with no paid tier and nothing locked. They install from the Microsoft Store, with Homebrew, with winget or straight from GitHub, and none of them asks for an account.",
+        },
+        {
+          q: "Will they become paid later?",
+          a: "The source is published under the GPL and the AGPL. Even if I ever wanted to charge for something new, what exists today stays free and anyone can continue it. That cannot be undone.",
+        },
+        {
+          q: "Do you sell my data?",
+          a: "There is no data to sell. Nothing is collected: no telemetry, no analytics, no identifiers. Whatever each application keeps lives on your disk and stays there.",
+        },
+        {
+          q: "What happens if you stop maintaining them?",
+          a: "What you have installed keeps working. The source and its history are public, so anyone can continue it, and what they store are ordinary files on your machine, readable without the application.",
+        },
+      ],
+      home: "Home",
+    };
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: say.faq.map((one) => ({
+      "@type": "Question",
+      name: one.q,
+      acceptedAnswer: { "@type": "Answer", text: one.a },
+    })),
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: say.home, item: `${DOMAIN}${href(locale)}` },
+      { "@type": "ListItem", position: 2, name: say.title, item: canonical(locale, paths[locale]) },
+    ],
+  },
+];
+---
+
+<Layout
+  title={say.title}
+  description={say.description}
+  locale={locale}
+  path={paths[locale]}
+  paths={paths}
+  here="pricing"
+  schema={schema}
+>
+  <section class="pt-4 pb-2 text-center sm:pt-8 sm:pb-6">
+    <h1 class="text-5xl font-bold tracking-tight text-stone-900 sm:text-7xl">
+      <span class="bg-gradient-to-b from-transparent to-emerald-200/70 bg-[length:100%_0.35em] bg-bottom bg-no-repeat">
+        {say.hero}
+      </span>
+    </h1>
+    <p class="mx-auto mt-6 max-w-xl text-xl text-stone-500 sm:text-2xl">
+      {say.sub.map((one) => <span class="block">{one}</span>)}
+    </p>
+  </section>
+
+  <section class="mt-10 grid gap-6 sm:grid-cols-3">
+    {
+      PRODUCTS.map((product) => {
+        const store = storeUrl(product);
+        return (
+          <article class="flex flex-col rounded-2xl border border-stone-200 bg-white p-7 shadow-sm transition hover:-translate-y-0.5 hover:border-stone-300 hover:shadow-md">
+            <span
+              class="h-1.5 w-10 rounded-full"
+              style={`background: ${product.accent}`}
+              aria-hidden="true"
+            />
+            <h2 class="mt-5 text-2xl font-semibold text-stone-900">{product.name}</h2>
+            <p class="mt-2 text-base leading-snug text-stone-500">
+              {words(product, locale).tagline}
+            </p>
+
+            <p class="mt-7 flex items-baseline gap-2">
+              <span class="text-6xl font-bold tracking-tight text-stone-900">0</span>
+              <span class="text-base text-stone-500">{say.forever}</span>
+            </p>
+
+            <ul class="mt-7 flex-1 space-y-2.5 text-base text-stone-600">
+              {say.included.map((one) => (
+                <li class="flex items-start gap-2.5">
+                  <svg
+                    viewBox="0 0 20 20"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="mt-1 h-4 w-4 shrink-0 text-emerald-600"
+                    aria-hidden="true"
+                  >
+                    <path d="M4 10.5l4 4 8-9" />
+                  </svg>
+                  {one}
+                </li>
+              ))}
+              <li class="flex items-start gap-2.5">
+                <svg
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="mt-1 h-4 w-4 shrink-0 text-emerald-600"
+                  aria-hidden="true"
+                >
+                  <path d="M4 10.5l4 4 8-9" />
+                </svg>
+                {product.licence}
+              </li>
+            </ul>
+
+            <a
+              class="mt-8 block rounded-xl bg-stone-900 px-5 py-3 text-center font-medium text-white transition hover:bg-stone-700"
+              href={href(locale, product.slug)}
+            >
+              {say.get} {product.name}
+            </a>
+            {store && (
+              <a
+                class="mt-3 block text-center text-sm text-stone-500 underline transition hover:text-stone-900"
+                href={store}
+                rel="noopener"
+              >
+                Microsoft Store
+              </a>
+            )}
+          </article>
+        );
+      })
+    }
+  </section>
+
+  <section class="mx-auto mt-24 max-w-2xl">
+    <h2 class="text-3xl font-semibold tracking-tight sm:text-4xl">{say.catchTitle}</h2>
+    {say.catch.map((one) => <p class="mt-5 text-stone-600">{one}</p>)}
+  </section>
+
+  <section class="mx-auto mt-20 max-w-2xl">
+    <h2 class="text-3xl font-semibold tracking-tight sm:text-4xl">{say.openTitle}</h2>
+    <p class="mt-5 text-stone-600">{say.open}</p>
+  </section>
+
+  <section class="mx-auto mt-20 max-w-2xl rounded-2xl border border-stone-200 bg-white p-8">
+    <h2 class="text-2xl font-semibold">{say.helpTitle}</h2>
+    <p class="mt-3 text-stone-600">{say.help}</p>
+    <a
+      class="mt-6 inline-block rounded-xl border border-stone-300 px-5 py-3 font-medium transition hover:border-stone-400 hover:bg-stone-50"
+      href={href(locale, es ? "apoyar" : "support")}
+    >
+      {say.helpGo}
+    </a>
+  </section>
+
+  <section class="mx-auto mt-20 max-w-2xl">
+    <h2 class="text-3xl font-semibold tracking-tight sm:text-4xl">{say.faqTitle}</h2>
+    <div class="mt-8 space-y-7">
+      {
+        say.faq.map((one) => (
+          <div>
+            <h3 class="text-lg font-medium text-stone-900">{one.q}</h3>
+            <p class="mt-2 text-stone-600">{one.a}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+</Layout>

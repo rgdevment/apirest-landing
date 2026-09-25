@@ -11,6 +11,8 @@ const ENTRIES: Entry[] = [
   { en: "", es: "", priority: "1.0", lastmod: NEWEST },
   ...PRODUCTS.map((p) => ({ en: p.slug, es: p.slug, priority: "0.9", lastmod: NEWEST })),
   { en: "guides", es: "guias", priority: "0.7", lastmod: NEWEST },
+  { en: "pricing", es: "precios", priority: "0.8", lastmod: NEWEST },
+  { en: "support", es: "apoyar", priority: "0.6", lastmod: NEWEST },
   ...GUIDES.map((g) => ({
     en: g.en.slug,
     es: g.es.slug,

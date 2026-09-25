@@ -17,7 +17,6 @@ export type Product = {
   storeId?: string;
   winget?: string;
   cask?: string;
-  scoop?: string;
   shot?: {
     src: string;
     srcEs?: string;
@@ -46,16 +45,17 @@ export const PRODUCTS: Product[] = [
       srcEs: "/tisty-social-es.png",
       width: 1280,
       height: 640,
-      en: "Tisty: notes, documents and tasks, with the day's list beside the documents kept on disk",
-      es: "Tisty: notas, documentos y tareas, con la lista del dia junto a los documentos guardados en disco",
+      en: "Tisty: the day's tasks beside the documents they left behind, kept as files on disk",
+      es: "Tisty: las tareas del dia junto a los documentos que dejaron, guardados como archivos en disco",
     },
     accent: "#6F4BD8",
     en: {
-      tagline: "Notes, documents and tasks, in files you can read without it.",
+      tagline: "A record of how you worked things out, not a list you empty.",
       problem:
-        "Your notes live inside somebody else's application. The day it shuts down, or the subscription lapses, you find out what you actually own.",
+        "A task list forgets the moment you tick the box. Six months later the same problem comes back and all that is left is knowing you solved it once, somehow.",
       what: [
-        "Notes, documents and tasks kept as plain files on your own disk.",
+        "What you finish stays: the steps you took, the dated journal, the files and the documents you leaned on. Months later you search for how you solved it, and it is there.",
+        "Notes, documents and tasks kept as plain files on your own disk, readable without Tisty running.",
         "No account and no server: nothing is synchronised unless you put the folder somewhere that synchronises.",
         "An MCP door your assistant can knock on, so a model can read and write what you keep, with your permission.",
       ],
@@ -73,11 +73,12 @@ export const PRODUCTS: Product[] = [
       ],
     },
     es: {
-      tagline: "Notas, documentos y tareas, en archivos que puedes leer sin él.",
+      tagline: "El historial de cómo resolviste las cosas, no una lista que vacías.",
       problem:
-        "Tus notas viven dentro de la aplicación de otro. El día que cierre, o que se acabe la suscripción, descubres qué es tuyo de verdad.",
+        "Una lista de tareas olvida en cuanto marcas la casilla. Seis meses después vuelve el mismo problema y lo único que queda es saber que ya lo resolviste una vez, de alguna manera.",
       what: [
-        "Notas, documentos y tareas guardados como archivos corrientes en tu propio disco.",
+        "Lo que cierras se queda: los pasos que diste, el diario con su fecha, los archivos y los documentos en que te apoyaste. Meses después buscas cómo lo resolviste, y está.",
+        "Notas, documentos y tareas guardados como archivos corrientes en tu propio disco, legibles sin Tisty abierto.",
         "Sin cuenta y sin servidor: no se sincroniza nada salvo que tú pongas la carpeta en un sitio que sincronice.",
         "Una puerta MCP a la que tu asistente puede llamar, para que un modelo lea y escriba lo que guardas, con tu permiso.",
       ],
@@ -175,7 +176,6 @@ export const PRODUCTS: Product[] = [
     platforms: ["Windows", "macOS"],
     storeId: "9NBJRZF3K856",
     cask: "copypaste",
-    scoop: "copypaste",
     shot: {
       src: "/copypaste-social.png",
       width: 1280,
