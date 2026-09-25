@@ -53,9 +53,9 @@ export const PRODUCTS: Product[] = [
     },
     accent: "#6F4BD8",
     en: {
-      tagline: "A record of how you worked things out, not a list you empty.",
-      title: "Tisty - Notes and tasks kept as files on your own disk",
-      meta: "Free, open source task and note keeper for Windows and macOS. Keeps how you solved things, with its steps and documents, as plain files on your disk.",
+      tagline: "Notes, documents and tasks. The record of what you learned solving them.",
+      title: "Tisty - Notes, documents and tasks on your own disk",
+      meta: "Notes, documents and tasks as plain files on your own disk, for Windows and macOS. Free and open source: no account, no server, no subscription.",
       problem:
         "A task list forgets the moment you tick the box. Six months later the same problem comes back and all that is left is knowing you solved it once, somehow.",
       what: [
@@ -78,9 +78,9 @@ export const PRODUCTS: Product[] = [
       ],
     },
     es: {
-      tagline: "El historial de cómo resolviste las cosas, no una lista que vacías.",
-      title: "Tisty - Notas y tareas en archivos de tu propio disco",
-      meta: "Gestor de tareas y notas gratuito y de código abierto para Windows y macOS. Guarda cómo resolviste las cosas, con sus pasos y documentos, en tu disco.",
+      tagline: "Notas, documentos y tareas. El historial de lo que aprendiste resolviendo.",
+      title: "Tisty - Notas, documentos y tareas en tu propio disco",
+      meta: "Notas, documentos y tareas en archivos de tu propio disco, para Windows y macOS. Gratis y de código abierto: sin cuenta, sin servidor y sin suscripción.",
       problem:
         "Una lista de tareas olvida en cuanto marcas la casilla. Seis meses después vuelve el mismo problema y lo único que queda es saber que ya lo resolviste una vez, de alguna manera.",
       what: [
