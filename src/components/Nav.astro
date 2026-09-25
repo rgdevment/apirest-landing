@@ -1,5 +1,4 @@
 ---
-import Mark from "./Mark.astro";
 import { PRODUCTS } from "../content/products";
 import { href, type Locale } from "../site";
 
@@ -28,11 +27,11 @@ const links: [string, string, string][] = [
       ]) as [string, string, string][]),
 ];
 
-const on = "text-stone-900 font-medium";
-const off = "text-stone-500 transition-colors hover:text-stone-900";
+const on = "text-ink font-medium";
+const off = "text-stone-500 transition-colors hover:text-ink";
 ---
 
-<header class="sticky top-0 z-40 border-b border-stone-200/70 bg-stone-50/85 backdrop-blur-md">
+<header class="sticky top-0 z-40 border-b border-stone-200/70 bg-paper/85 backdrop-blur-md">
   <nav
     aria-label={es ? "Principal" : "Main"}
     class="mx-auto max-w-5xl px-6 sm:px-8"
@@ -42,9 +41,14 @@ const off = "text-stone-500 transition-colors hover:text-stone-900";
       <summary
         class="flex cursor-pointer list-none items-center gap-3 py-4 lg:cursor-default [&::-webkit-details-marker]:hidden"
       >
-        <a class="flex items-center gap-2.5" href={href(locale)}>
-          <Mark class="h-8 w-8 rounded-[9px]" />
-          <span class="text-lg font-semibold tracking-tight text-stone-900">rgdevment</span>
+        <a class="flex items-center" href={href(locale)}>
+          <img
+            src="/rgdevment.svg"
+            alt="rgdevment"
+            width="660"
+            height="108"
+            class="h-6 w-auto lg:h-[26px]"
+          />
         </a>
 
         <span class="ml-auto flex items-center gap-4 lg:hidden">
@@ -79,7 +83,7 @@ const off = "text-stone-500 transition-colors hover:text-stone-900";
           }
           <li>
             <a
-              class="rounded-full border border-stone-300 px-3 py-1 text-sm text-stone-600 transition-colors hover:border-stone-400 hover:bg-white hover:text-stone-900"
+              class="rounded-full border border-stone-300 px-3 py-1 text-sm text-stone-600 transition-colors hover:border-stone-400 hover:bg-white hover:text-ink"
               href={href(there, other)}
               lang={there}
               hreflang={there}
@@ -95,7 +99,7 @@ const off = "text-stone-500 transition-colors hover:text-stone-900";
           links.map(([slug, label, key]) => (
             <li>
               <a
-                class={`block rounded-lg px-3 py-2 ${here === key ? "bg-white font-medium text-stone-900" : "text-stone-600"}`}
+                class={`block rounded-lg px-3 py-2 ${here === key ? "bg-white font-medium text-ink" : "text-stone-600"}`}
                 aria-current={here === key ? "page" : undefined}
                 href={href(locale, slug)}
               >

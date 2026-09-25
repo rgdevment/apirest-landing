@@ -92,7 +92,7 @@ const schema = {
       {
         say.free.map(([term, body]) => (
           <div>
-            <dt class="font-medium text-stone-900">{term}</dt>
+            <dt class="font-medium text-ink">{term}</dt>
             <dd class="mt-1 leading-relaxed text-stone-600">{body}</dd>
           </div>
         ))
@@ -105,7 +105,7 @@ const schema = {
           const store = storeUrl(product);
           return (
             <li class="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm">
-              <span class="font-medium text-stone-900">{product.name}</span>
+              <span class="font-medium text-ink">{product.name}</span>
               <a class="underline text-stone-600" href={product.repo} rel="noopener">
                 GitHub
               </a>

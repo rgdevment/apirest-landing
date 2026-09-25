@@ -59,10 +59,11 @@ const schema = [
   locale={locale}
   path={path}
   paths={{ en: "guides", es: "guias" }}
+  here="guides"
   schema={schema}
 >
   <nav class="mb-10 text-sm text-stone-500">
-    <a class="hover:text-stone-900" href={href(locale)}>{say.home}</a>
+    <a class="hover:text-ink" href={href(locale)}>{say.home}</a>
     <span class="px-2">/</span>
     <span class="text-stone-700">{say.title}</span>
   </nav>

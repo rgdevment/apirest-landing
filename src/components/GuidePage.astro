@@ -55,7 +55,13 @@ const schema = [
     "@type": "BreadcrumbList",
     itemListElement: [
       { "@type": "ListItem", position: 1, name: say.home, item: `${DOMAIN}${href(locale)}` },
-      { "@type": "ListItem", position: 2, name: t.title, item: canonical(locale, t.slug) },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: say.guides,
+        item: canonical(locale, es ? "guias" : "guides"),
+      },
+      { "@type": "ListItem", position: 3, name: t.title, item: canonical(locale, t.slug) },
     ],
   },
 ];
@@ -67,12 +73,14 @@ const schema = [
   locale={locale}
   path={t.slug}
   paths={paths}
+  here="guides"
+  published={guide.published}
   schema={schema}
 >
   <nav class="mb-10 text-sm text-stone-500">
-    <a class="hover:text-stone-900" href={href(locale)}>{say.home}</a>
+    <a class="hover:text-ink" href={href(locale)}>{say.home}</a>
     <span class="px-2">/</span>
-    <a class="hover:text-stone-900" href={href(locale, es ? "guias" : "guides")}>{say.guides}</a>
+    <a class="hover:text-ink" href={href(locale, es ? "guias" : "guides")}>{say.guides}</a>
   </nav>
 
   <article>
@@ -89,7 +97,7 @@ const schema = [
                 {at + 1}
               </span>
               <div>
-                <h3 class="font-medium text-stone-900">{one.title}</h3>
+                <h3 class="font-medium text-ink">{one.title}</h3>
                 <p class="mt-1 leading-relaxed text-stone-600">{one.body}</p>
               </div>
             </li>
@@ -136,7 +144,7 @@ const schema = [
                   class="block rounded-lg border border-stone-200 p-4 transition hover:border-stone-400 hover:bg-stone-100"
                   href={href(locale, written(one, locale).slug)}
                 >
-                  <span class="font-medium text-stone-900">{written(one, locale).title}</span>
+                  <span class="font-medium text-ink">{written(one, locale).title}</span>
                 </a>
               </li>
             ))}
@@ -151,7 +159,7 @@ const schema = [
         {
           t.faq.map((one) => (
             <div>
-              <h3 class="font-medium text-stone-900">{one.q}</h3>
+              <h3 class="font-medium text-ink">{one.q}</h3>
               <p class="mt-2 leading-relaxed text-stone-600">{one.a}</p>
             </div>
           ))

@@ -54,7 +54,7 @@ export const TISTY_GUIDES: Guide[] = [
       slug: "guias/notas-que-puedes-leer-sin-la-aplicacion",
       title: "Notas que podrás leer aunque la aplicación desaparezca",
       description:
-        "Casi todas las aplicaciones de notas guardan lo que escribes en un formato que solo entienden ellas. Cómo averiguar qué te quedaría de verdad y cómo dejar de depender de eso.",
+        "Casi todas las aplicaciones de notas guardan lo que escribes en un formato que solo entienden ellas. Cómo saber qué te quedaría y cómo no depender de eso.",
       lede: "La pregunta no es si te fías de la aplicación hoy. Es qué queda el día que cierre, cambie sus condiciones, o se acabe la suscripción y tus notas se queden detrás de un muro que escribiste tú.",
       nativeTitle: "Primero, averigua qué te quedaría de verdad",
       nativeSteps: [

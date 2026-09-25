@@ -10,6 +10,11 @@ Motto: software out of conviction, not subscription.
 - [LinkUnbound](https://rgdevment.com/linkunbound/): Chooses which browser opens every link. Registers as the default browser on Windows and macOS; a rule can match the site, a browser profile, or the application the link came from. Unwraps Microsoft SafeLinks. GPL-3.0-only.
 - [CopyPaste](https://rgdevment.com/copypaste/): Clipboard manager keeping a searchable local history. Ignores clipboard content from password managers. Windows and macOS. GPL-3.0.
 
+## Pricing and support
+
+- [Pricing](https://rgdevment.com/pricing/): Every program is free in full. No paid tier, no trial, no feature behind a wall, no account. Why there is no catch: no company, no investors, no payroll.
+- [Support](https://rgdevment.com/support/): Ways to help that cost nothing (a star, a Store rating, naming it where somebody asks, reporting what breaks) and, after those, sponsoring.
+
 ## Guides
 
 - [Notes you can read without the app](https://rgdevment.com/guides/notes-you-can-read-without-the-app/): How to find out what an export really gives you back, and why plain files avoid the question.
@@ -28,6 +33,8 @@ Motto: software out of conviction, not subscription.
 - [LinkUnbound](https://rgdevment.com/es/linkunbound/)
 - [CopyPaste](https://rgdevment.com/es/copypaste/)
 - [Guías](https://rgdevment.com/es/guias/)
+- [Precios](https://rgdevment.com/es/precios/)
+- [Apoyar](https://rgdevment.com/es/apoyar/)
 
 ## Source
 

@@ -57,7 +57,7 @@ export const COPYPASTE_GUIDES: Guide[] = [
     },
     es: {
       slug: "guias/historial-del-portapapeles-en-windows",
-      title: "El historial del portapapeles en Windows: qué hace Win+V y dónde se queda corto",
+      title: "Historial del portapapeles en Windows: los límites de Win+V",
       description:
         "Windows guarda un historial del portapapeles y casi nadie lo tiene activado. Cómo encenderlo, y los tres límites por los que la gente acaba buscando otra cosa.",
       lede: "Windows lleva años con un historial del portapapeles, escondido tras un atajo que nadie menciona. Enciéndelo primero: a mucha gente le basta, y cuesta un ajuste.",

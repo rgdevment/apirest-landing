@@ -15,6 +15,13 @@ const t = words(product, locale);
 const es = locale === "es";
 const store = storeUrl(product);
 const path = product.slug;
+const social = product.shot
+  ? {
+      src: es && product.shot.srcEs ? product.shot.srcEs : product.shot.src,
+      width: product.shot.width,
+      height: product.shot.height,
+    }
+  : undefined;
 
 const guides = GUIDES.filter((one) => one.product === product.slug);
 
@@ -40,7 +47,7 @@ const schema = [
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     name: product.name,
-    description: t.tagline,
+    description: t.meta,
     applicationCategory: "UtilitiesApplication",
     operatingSystem: product.platforms.join(", "),
     url: canonical(locale, path),
@@ -79,14 +86,16 @@ const schema = [
 ---
 
 <Layout
-  title={`${product.name} - ${t.tagline}`}
-  description={t.problem}
+  title={t.title ?? `${product.name} - ${t.tagline}`}
+  description={t.meta}
+  image={social}
   locale={locale}
   path={path}
+  here={product.slug}
   schema={schema}
 >
   <nav class="mb-10 text-sm text-stone-500">
-    <a class="hover:text-stone-900" href={href(locale)}>{say.home}</a>
+    <a class="hover:text-ink" href={href(locale)}>{say.home}</a>
     <span class="px-2">/</span>
     <span class="text-stone-700">{product.name}</span>
   </nav>
@@ -108,7 +117,7 @@ const schema = [
         <Icon name="licence" class="h-3.5 w-3.5" />
         {product.licence}
       </li>
-      <li class="inline-flex items-center gap-1.5 rounded-lg bg-emerald-50 px-2.5 py-1.5 text-sm font-medium text-emerald-700">
+      <li class="inline-flex items-center gap-1.5 rounded-lg bg-flame-tint px-2.5 py-1.5 text-sm font-medium text-flame-deep">
         <Icon name="free" class="h-3.5 w-3.5" />
         {say.free}
       </li>
@@ -121,7 +130,7 @@ const schema = [
         {
           store && (
             <a
-              class="inline-flex items-center gap-2.5 rounded-xl border border-stone-300 px-6 py-3.5 font-medium transition hover:border-stone-400 hover:bg-white group-data-[os=win]:border-transparent group-data-[os=win]:bg-stone-900 group-data-[os=win]:text-white group-data-[os=win]:hover:bg-stone-700 group-data-[os=mac]:border-stone-200 group-data-[os=mac]:px-4 group-data-[os=mac]:py-2 group-data-[os=mac]:text-sm group-data-[os=mac]:text-stone-600"
+              class="inline-flex items-center gap-2.5 rounded-xl border border-stone-300 px-6 py-3.5 font-medium transition hover:border-stone-400 hover:bg-white group-data-[os=win]:border-transparent group-data-[os=win]:bg-ink group-data-[os=win]:text-white group-data-[os=win]:hover:bg-ink-soft group-data-[os=mac]:border-stone-200 group-data-[os=mac]:px-4 group-data-[os=mac]:py-2 group-data-[os=mac]:text-sm group-data-[os=mac]:text-stone-600"
               href={store}
               rel="noopener"
             >
@@ -133,7 +142,7 @@ const schema = [
         {
           product.cask && (
             <a
-              class="inline-flex items-center gap-2.5 rounded-xl border border-stone-300 px-6 py-3.5 font-medium transition hover:border-stone-400 hover:bg-white group-data-[os=mac]:border-transparent group-data-[os=mac]:bg-stone-900 group-data-[os=mac]:text-white group-data-[os=mac]:hover:bg-stone-700 group-data-[os=win]:border-stone-200 group-data-[os=win]:px-4 group-data-[os=win]:py-2 group-data-[os=win]:text-sm group-data-[os=win]:text-stone-600"
+              class="inline-flex items-center gap-2.5 rounded-xl border border-stone-300 px-6 py-3.5 font-medium transition hover:border-stone-400 hover:bg-white group-data-[os=mac]:border-transparent group-data-[os=mac]:bg-ink group-data-[os=mac]:text-white group-data-[os=mac]:hover:bg-ink-soft group-data-[os=win]:border-stone-200 group-data-[os=win]:px-4 group-data-[os=win]:py-2 group-data-[os=win]:text-sm group-data-[os=win]:text-stone-600"
               href="#install"
             >
               <Icon name="apple" class="h-4 w-4" />
@@ -143,7 +152,7 @@ const schema = [
         }
       </p>
       <p class="mt-3 text-sm text-stone-500">
-        <a class="underline transition hover:text-stone-900" href="#install">{say.ways}</a>
+        <a class="underline transition hover:text-ink" href="#install">{say.ways}</a>
       </p>
     </div>
 
@@ -193,7 +202,7 @@ const schema = [
               <Icon name="windows" class="h-5 w-5" />
             </span>
             <span class="min-w-0">
-              <span class="block font-semibold text-stone-900">Microsoft Store</span>
+              <span class="block font-semibold text-ink">Microsoft Store</span>
               <span class="mt-0.5 block text-sm text-stone-500">Windows</span>
             </span>
             <Icon name="arrow" class="ml-auto mt-1 h-4 w-4 shrink-0 text-stone-400 transition group-hover:translate-x-0.5" />
@@ -209,23 +218,22 @@ const schema = [
                 <Icon name="apple" class="h-5 w-5" />
               </span>
               <span>
-                <span class="block font-semibold text-stone-900">Homebrew</span>
+                <span class="block font-semibold text-ink">Homebrew</span>
                 <span class="mt-0.5 block text-sm text-stone-500">macOS</span>
               </span>
             </div>
-            <div class="mt-4 flex items-start gap-2 rounded-xl bg-stone-900 py-3 pr-2 pl-3.5">
+            <div class="mt-4 flex items-start gap-2 rounded-xl bg-ink py-3 pr-2 pl-3.5">
               <code class="flex-1 overflow-x-auto font-mono text-[13px] text-stone-100">
                 <span class="block whitespace-nowrap">
                   <span class="text-stone-500 select-none">$ </span>brew tap rgdevment/tap
                 </span>
                 <span class="mt-1 block whitespace-nowrap">
-                  <span class="text-stone-500 select-none">$ </span>brew install --cask{" "}
-                  {product.cask}
+                  <span class="text-stone-500 select-none">$ </span>brew install --cask {product.cask}
                 </span>
               </code>
               <button
                 type="button"
-                class="copy shrink-0 rounded-lg p-1.5 text-stone-400 transition hover:bg-stone-800 hover:text-white"
+                class="copy shrink-0 rounded-lg p-1.5 text-stone-400 transition hover:bg-ink-soft hover:text-white"
                 data-copy={`brew tap rgdevment/tap
 brew install --cask ${product.cask}`}
                 aria-label={say.copy}
@@ -245,17 +253,17 @@ brew install --cask ${product.cask}`}
                 <Icon name="windows" class="h-5 w-5" />
               </span>
               <span>
-                <span class="block font-semibold text-stone-900">winget</span>
+                <span class="block font-semibold text-ink">winget</span>
                 <span class="mt-0.5 block text-sm text-stone-500">Windows</span>
               </span>
             </div>
-            <div class="mt-4 flex items-center gap-2 rounded-xl bg-stone-900 py-2.5 pr-2 pl-3.5">
+            <div class="mt-4 flex items-center gap-2 rounded-xl bg-ink py-2.5 pr-2 pl-3.5">
               <code class="flex-1 overflow-x-auto font-mono text-[13px] whitespace-nowrap text-stone-100">
                 <span class="text-stone-500 select-none">$ </span>winget install {product.winget}
               </code>
               <button
                 type="button"
-                class="copy shrink-0 rounded-lg p-1.5 text-stone-400 transition hover:bg-stone-800 hover:text-white"
+                class="copy shrink-0 rounded-lg p-1.5 text-stone-400 transition hover:bg-ink-soft hover:text-white"
                 data-copy={`winget install ${product.winget}`}
                 aria-label={say.copy}
               >
@@ -275,7 +283,7 @@ brew install --cask ${product.cask}`}
           <Icon name="download" class="h-5 w-5" />
         </span>
         <span class="min-w-0">
-          <span class="block font-semibold text-stone-900">GitHub Releases</span>
+          <span class="block font-semibold text-ink">GitHub Releases</span>
           <span class="mt-0.5 block text-sm text-stone-500">{say.direct}</span>
         </span>
         <Icon name="arrow" class="ml-auto mt-1 h-4 w-4 shrink-0 text-stone-400 transition group-hover:translate-x-0.5" />
@@ -284,9 +292,9 @@ brew install --cask ${product.cask}`}
   </section>
 
   <section class="mt-16 sm:mt-24">
-    <div class="rounded-2xl border border-emerald-200/70 bg-emerald-50/60 p-7">
-      <h2 class="flex items-center gap-2.5 text-xl font-semibold text-stone-900">
-        <span class="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-white text-emerald-700">
+    <div class="rounded-2xl border border-flame/30 bg-flame-tint/60 p-7">
+      <h2 class="flex items-center gap-2.5 text-xl font-semibold text-ink">
+        <span class="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-white text-flame-deep">
           <Icon name="shield" class="h-[18px] w-[18px]" />
         </span>
         {say.privacy}
@@ -301,7 +309,7 @@ brew install --cask ${product.cask}`}
       {
         t.faq.map((one) => (
           <div class="py-6">
-            <dt class="text-lg font-semibold text-stone-900">{one.q}</dt>
+            <dt class="text-lg font-semibold text-ink">{one.q}</dt>
             <dd class="mt-2.5 leading-relaxed text-stone-600">{one.a}</dd>
           </div>
         ))
@@ -320,7 +328,7 @@ brew install --cask ${product.cask}`}
                 class="block rounded-lg border border-stone-200 p-4 transition hover:border-stone-400 hover:bg-stone-100"
                 href={href(locale, written(one, locale).slug)}
               >
-                <span class="font-medium text-stone-900">{written(one, locale).title}</span>
+                <span class="font-medium text-ink">{written(one, locale).title}</span>
                 <span class="mt-1 block text-sm text-stone-500">
                   {written(one, locale).description}
                 </span>
@@ -333,7 +341,7 @@ brew install --cask ${product.cask}`}
   }
 
   <section class="mt-14 border-t border-stone-200 pt-8">
-    <a class="text-stone-600 underline hover:text-stone-900" href={product.repo} rel="noopener">
+    <a class="text-stone-600 underline hover:text-ink" href={product.repo} rel="noopener">
       {say.source}
     </a>
   </section>
@@ -348,8 +356,8 @@ brew install --cask ${product.cask}`}
     document.querySelectorAll(".copy").forEach((one) => {
       one.addEventListener("click", () => {
         navigator.clipboard?.writeText(one.dataset.copy || "");
-        one.classList.add("text-emerald-400");
-        setTimeout(() => one.classList.remove("text-emerald-400"), 1200);
+        one.classList.add("text-flame");
+        setTimeout(() => one.classList.remove("text-flame"), 1200);
       });
     });
   </script>

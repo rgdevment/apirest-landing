@@ -15,7 +15,7 @@ const say = es
   ? {
       title: "Herramientas de escritorio que son tuyas",
       description:
-        "Programas gratuitos y de código abierto para Windows y macOS: un historial de cómo resolviste las cosas, un selector de navegador y un gestor de portapapeles. Sin cuenta, sin telemetría y sin suscripción.",
+        "Programas gratuitos y de código abierto para Windows y macOS: un registro de cómo resolviste las cosas, un selector de navegador y un gestor de portapapeles.",
       motto: "Software por convicción,",
       motto2: "no por suscripción.",
       lede: "Programas que se adaptan, no que se apartan. Tus datos en tu disco o en tu nube, tú eliges. Sin telemetría, sin cuentas, sin suscripciones. Gratis y de código abierto.",
@@ -57,7 +57,7 @@ const say = es
   : {
       title: "Desktop tools that are yours",
       description:
-        "Free, open source programs for Windows and macOS: a record of how you worked things out, a browser picker and a clipboard manager. No account, no telemetry, no subscription.",
+        "Free, open source programs for Windows and macOS: a record of how you work things out, a browser picker and a clipboard manager. No account, no telemetry.",
       motto: "Software out of conviction,",
       motto2: "not subscription.",
       lede: "Programs that fit how you work instead of getting in your way. Your data on your disk or in your cloud, your call. No telemetry, no accounts, no subscriptions. Free and open source.",
@@ -106,7 +106,7 @@ const schema = {
   hasPart: PRODUCTS.map((p) => ({
     "@type": "SoftwareApplication",
     name: p.name,
-    description: words(p, locale).tagline,
+    description: words(p, locale).meta,
     applicationCategory: "UtilitiesApplication",
     operatingSystem: p.platforms.join(", "),
     url: canonical(locale, p.slug),
@@ -121,7 +121,7 @@ const marks = ["windows", "code", "shield", "free"] as const;
 
 <Layout title={say.title} description={say.description} locale={locale} schema={schema}>
   <section class="pt-2 pb-4 text-center sm:pt-8">
-    <h1 class="text-4xl font-bold tracking-tight text-stone-900 sm:text-6xl">
+    <h1 class="text-4xl font-bold tracking-tight text-ink sm:text-6xl">
       <span class="block">{say.motto}</span>
       <span class="block text-stone-400">{say.motto2}</span>
     </h1>
@@ -131,7 +131,7 @@ const marks = ["windows", "code", "shield", "free"] as const;
       {
         say.marks.map((one, at) => (
           <li
-            class={`inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm ${at === 3 ? "bg-emerald-50 font-medium text-emerald-700" : "bg-stone-100 text-stone-600"}`}
+            class={`inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm ${at === 3 ? "bg-flame-tint font-medium text-flame-deep" : "bg-stone-100 text-stone-600"}`}
           >
             <Icon name={marks[at]} class="h-3.5 w-3.5" />
             {one}
@@ -159,12 +159,12 @@ const marks = ["windows", "code", "shield", "free"] as const;
               style={`background: ${product.accent}`}
               aria-hidden="true"
             />
-            <h3 class="mt-5 text-xl font-semibold text-stone-900">{product.name}</h3>
+            <h3 class="mt-5 text-xl font-semibold text-ink">{product.name}</h3>
             <p class="mt-2 leading-snug text-stone-700">{words(product, locale).tagline}</p>
             <p class="mt-3 flex-1 text-sm leading-relaxed text-stone-500">
               {words(product, locale).problem}
             </p>
-            <span class="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-stone-900">
+            <span class="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-ink">
               {say.see} {product.name}
               <Icon name="arrow" class="h-4 w-4 transition group-hover:translate-x-0.5" />
             </span>
@@ -180,7 +180,7 @@ const marks = ["windows", "code", "shield", "free"] as const;
       {
         say.why.map(([icon, term, body]) => (
           <div class="rounded-2xl border border-stone-200 bg-white p-6">
-            <dt class="flex items-center gap-2.5 font-semibold text-stone-900">
+            <dt class="flex items-center gap-2.5 font-semibold text-ink">
               <span class="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-stone-100 text-stone-700">
                 <Icon name={icon as "disk"} class="h-[18px] w-[18px]" />
               </span>
@@ -198,7 +198,7 @@ const marks = ["windows", "code", "shield", "free"] as const;
       <h2 class="text-xl font-semibold">{say.guidesTitle}</h2>
       <p class="mt-3 leading-relaxed text-stone-600">{say.guidesLede}</p>
       <a
-        class="mt-5 inline-flex items-center gap-1.5 font-medium text-stone-900 hover:underline"
+        class="mt-5 inline-flex items-center gap-1.5 font-medium text-ink hover:underline"
         href={href(locale, es ? "guias" : "guides")}
       >
         {say.guidesGo}
@@ -206,7 +206,7 @@ const marks = ["windows", "code", "shield", "free"] as const;
       </a>
     </div>
 
-    <div class="rounded-2xl bg-stone-900 p-7 text-white">
+    <div class="rounded-2xl bg-ink p-7 text-white">
       <h2 class="text-xl font-semibold">{say.priceTitle}</h2>
       <p class="mt-3 leading-relaxed text-stone-300">{say.priceLede}</p>
       <a

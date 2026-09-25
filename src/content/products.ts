@@ -2,6 +2,9 @@ import type { Locale } from "../site";
 
 type Words = {
   tagline: string;
+  /// Only where name plus tagline runs past what a result page shows.
+  title?: string;
+  meta: string;
   problem: string;
   what: string[];
   privacy: string;
@@ -51,6 +54,8 @@ export const PRODUCTS: Product[] = [
     accent: "#6F4BD8",
     en: {
       tagline: "A record of how you worked things out, not a list you empty.",
+      title: "Tisty - Notes and tasks kept as files on your own disk",
+      meta: "Free, open source task and note keeper for Windows and macOS. Keeps how you solved things, with its steps and documents, as plain files on your disk.",
       problem:
         "A task list forgets the moment you tick the box. Six months later the same problem comes back and all that is left is knowing you solved it once, somehow.",
       what: [
@@ -74,6 +79,8 @@ export const PRODUCTS: Product[] = [
     },
     es: {
       tagline: "El historial de cómo resolviste las cosas, no una lista que vacías.",
+      title: "Tisty - Notas y tareas en archivos de tu propio disco",
+      meta: "Gestor de tareas y notas gratuito y de código abierto para Windows y macOS. Guarda cómo resolviste las cosas, con sus pasos y documentos, en tu disco.",
       problem:
         "Una lista de tareas olvida en cuanto marcas la casilla. Seis meses después vuelve el mismo problema y lo único que queda es saber que ya lo resolviste una vez, de alguna manera.",
       what: [
@@ -115,6 +122,7 @@ export const PRODUCTS: Product[] = [
     accent: "#2F62D8",
     en: {
       tagline: "Choose which browser opens every link.",
+      meta: "Free, open source browser picker for Windows and macOS. Choose which browser or profile opens every link, with rules per site and per application.",
       problem:
         "A link from Teams opens in Edge. One from Slack lands wherever Windows decided last. You keep three browsers and four profiles, and nobody asks you which one you meant.",
       what: [
@@ -142,6 +150,7 @@ export const PRODUCTS: Product[] = [
     },
     es: {
       tagline: "Elige con qué navegador se abre cada enlace.",
+      meta: "Selector de navegador gratuito y de código abierto para Windows y macOS. Elige qué navegador o perfil abre cada enlace, con reglas por sitio y aplicación.",
       problem:
         "Un enlace de Teams se abre en Edge. Uno de Slack, donde Windows decidiera la última vez. Tienes tres navegadores y cuatro perfiles, y a ti no te pregunta nadie.",
       what: [
@@ -186,6 +195,7 @@ export const PRODUCTS: Product[] = [
     accent: "#1E7A52",
     en: {
       tagline: "Everything you copied, still there.",
+      meta: "Free, open source clipboard manager for Windows and macOS. A searchable local history of what you copy that ignores your password manager.",
       problem:
         "You copied an address ten minutes ago and then copied something else. It is gone, and the only way back is to go and find it again.",
       what: [
@@ -209,6 +219,7 @@ export const PRODUCTS: Product[] = [
     },
     es: {
       tagline: "Todo lo que copiaste, ahí sigue.",
+      meta: "Gestor de portapapeles gratuito y de código abierto para Windows y macOS. Historial local y buscable de lo que copias, que ignora tu gestor de contraseñas.",
       problem:
         "Copiaste una dirección hace diez minutos y luego copiaste otra cosa. Ya no está, y la única forma de recuperarla es ir a buscarla otra vez.",
       what: [
